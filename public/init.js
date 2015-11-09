@@ -1,3 +1,6 @@
+/*
+Created by Toroo
+*/
 require.config({
     paths: {
         "jquery" : '/assets/lib/jquery-2.0.3.min',
@@ -17,6 +20,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
     window.doc = new Body();
     require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js"],
         function(table, button, textarea, linklabel, label){
+            
             var mainTable = new table();
             var publicChatTable = new table();
             var privateChatTable = new table();
