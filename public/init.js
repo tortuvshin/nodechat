@@ -13,9 +13,23 @@ require.config({
         }
 });
 
-require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js"], function(io){
+require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/style.css"], function(io){
     window.doc = new Body();
-    require([],
-        function(){
+    require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js"],
+        function(table, button, textarea, linklabel, label){
+            var mainTable = new table();
+            var publicChatTable = new table();
+            var privateChatTable = new table();
+
+            doc.append(mainTable);
+
+            mainTable.addRow();
+            mainTable.addCell(0);
+            mainTable.addCell(0);
+            mainTable.addCellContent(0,0,publicChatTable);
+            mainTable.addCellContent(0,0,privateChatTable);
+
+            mainTable._view.attr("toroo-class","mainTable");
+
     })
 });
