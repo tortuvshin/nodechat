@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NINE Development Framework</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script type="text/javascript">
+        function initJS() 
+        {
+            var rjs = document.createElement("script");
+            rjs.src = "/assets/lib/require.min.js";
+            document.body.appendChild(rjs);
+            var timer = setInterval(function()
+                {
+                if(window.require) 
+                {
+                    require(["/init.js"]);
+                    clearInterval(timer);
+                }
+            }, 1);
+        }
+        if (window.addEventListener) 
+            window.addEventListener("load", initJS, false);
+        else if (window.attachEvent) 
+            window.attachEvent("onload", initJS);
+        else window.onload = initJS;
+    </script>
+    <style>
+        html, body { margin: 0px; height: 100%;}
+    </style>
+</head>
+<body>
+</body>
+</html>
