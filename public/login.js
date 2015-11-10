@@ -1,5 +1,5 @@
-define(["/table.js","/button.js","/textfield.js",'css!/style.css'], 
-	function(table,button,textfield){
+define(["/table.js","/button.js","/textfield.js","/label.js",'css!/style.css'], 
+	function(table,button,textfield,label){
     var LoginWindow = function(){
 
         var own = this;
@@ -10,13 +10,19 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
         Panel.addRow();
         Panel.addRow();
         Panel.addRow();
+        Panel.addRow();
 
         Panel.addCell(0);
         Panel.addCell(1);
         Panel.addCell(2);
-
+        Panel.addCell(3);
+        var titlelabel = new label("НЭВТРЭХ ХЭСЭГ");
+        titlelabel._view.attr("class","titlelabel");
         var usernamefield = new textfield();
+        usernamefield._view.attr("class","usernamefield");
         var passwordfield = new textfield();
+        passwordfield._view.attr("class","passwordfield");
+
         var loginButton = new button("Нэвтрэх");
         var registerButton = new button("Бүртгүүлэх");
 
@@ -28,10 +34,11 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
 
         Panel._view.attr("class", "LoginPanel");
         
-        Panel.addCellContentOneRow(0, 0, usernamefield);
-	    Panel.addCellContentOneRow(1, 0, passwordfield);
-	    Panel.addCellContentOneRow(2, 0, loginButton);
-	    Panel.addCellContentOneRow(2, 0, registerButton);	
+        Panel.addCellContentOneRow(0, 0, titlelabel);
+        Panel.addCellContentOneRow(1, 0, usernamefield);
+	    Panel.addCellContentOneRow(2, 0, passwordfield);
+	    Panel.addCellContentOneRow(3, 0, loginButton);
+	    Panel.addCellContentOneRow(3, 0, registerButton);	
 		jQuery(loginButton._view).click(function(){
 			var userInfo = {
 				username : usernamefield.getText(),
@@ -40,6 +47,18 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
 			window.socket.emit("LogIn", {user:userInfo});
 			name = userInfo.username;
 			window.socket.emit("LoginClient", name);	
+		})
+		jQuery(passwordfield._view).keypress(function(e){
+			if(e.keyCode == 13){
+				var userInfo = {
+					username : usernamefield.getText(),
+					password : passwordfield.getText()
+				}
+				window.socket.emit("LogIn", {user:userInfo});
+				name = userInfo.username;
+				window.socket.emit("LoginClient", name);
+			}
+				
 		})
     	
         jQuery(registerButton._view).click(function(){

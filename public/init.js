@@ -62,14 +62,16 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             chatTable.addCellContentOneRow(0,1,groupChatTable);
             chatTable.addCellContentOneRow(0,2,buddyTable);
 
-            var infoHeader = new label("ХЭРЭГЛЭГЧИЙН МЭДЭЭЛЭЛ");
+            var infoHeader = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspХЭРЭГЛЭГЧИЙН МЭДЭЭЛЭЛ");
+            infoHeader._view.attr("class","infoHeader");
             infoTable.addRow();
             infoTable.addRow();
             infoTable.addCell(0);
             infoTable.addCell(1);
             infoTable.addCellContent(0,0,infoHeader);
 
-            var groupChatHeader = new label("ГРҮПП ЧАТ");
+            var groupChatHeader = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspГРҮПП ЧАТ");
+            groupChatHeader._view.attr("class","groupChatHeader");
             groupChatTable.addRow();
             groupChatTable.addRow();
             groupChatTable.addRow();
@@ -80,13 +82,13 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             groupChatTable.addCellContent(1,0,TextArea);
             groupChatTable.addCellContentOneRow(2,0,TextField);
 
-            var buddyHeader = new label("ОНЛАЙН ХЭРЭГЛЭГЧИД");
+            var buddyHeader = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspОНЛАЙН ХЭРЭГЛЭГЧИД");
+            buddyHeader._view.attr("class","buddyHeader");
             buddyTable.addRow();
             buddyTable.addRow();
             buddyTable.addCell(0);
             buddyTable.addCell(1);
             buddyTable.addCellContent(0,0,buddyHeader);
-
             mainTable._view.attr("class","mainTable");
             headerTable._view.attr("class","headerTable");
 
@@ -137,6 +139,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                     onlineUsersTable.addCell(i);
                     onlineUserName.setText(client.name);
                     onlineUsersTable.addCellContent(i,0,onlineUserName);
+                    buddyTable.addCellContent(1,0,onlineUsersTable);
                     jQuery(onlineUserName._view).on("click",function(){
                         selectedUser = {
                             name : client.name, 
@@ -149,31 +152,32 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                             var chatText = new label("user");
                             var chatTextArea = new textarea();
                             var chatTextField = new textfield();
-                            var chatSendButton = new button("Илгээх");
                             var chatCloseButton = new button("X");
                             var chatHideButton = new button("_");
                             var chatShowButton = new button("[]");
                             chatShowButton._view.hide();
 
-                            chatSendButton._view.attr("class","sendButton");
+                            chatText._view.attr("class","chatText");
+                            chatTextArea._view.attr("class","chatTextArea");
+                            chatTextField._view.attr("class","chatTextField");
                             chatCloseButton._view.attr("class","closeButton");
                             chatHideButton._view.attr("class","hideButton");
                             chatShowButton._view.attr("class","showButton");
                             
-
-
                             chatWindows[client.id] = chatWindow;
                             chatWindows[client.id]._view.css({"right": Object.keys(chatWindows).length * 100 + 'px'});
 
-                            $(chatSendButton._view).on("click", function(){
-
-                                var text = chatTextField.getText();
-                                var message = {
-                                    text: text,
-                                    end_client : selectedUser.id
-                                }
-                                socket.emit("msg", JSON.stringify(message));
-                                chatTextArea.appendText(selectedUser.name + " : " + text);
+                            $(chatTextField._view).keypress(function(e){
+                                if(e.keyCode == 13){
+                                    var text = chatTextField.getText();
+                                    var message = {
+                                        text: text,
+                                        end_client : selectedUser.id
+                                    }
+                                    socket.emit("msg", JSON.stringify(message));
+                                    chatTextArea.appendText(selectedUser.name + " : " + text);
+                                    chatTextField.setText("");
+                                    }
                             })  
                             socket.on("msg", function(data){
                                 var message = JSON.parse(data);
@@ -202,13 +206,13 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                             })
                             chatWindow.addControl(chatTextArea);
                             chatWindow.addControl2(chatTextField);
-                            chatWindow.addControl3(chatSendButton);
                             chatWindow.addControl5(chatText);
                             chatWindow.addControl6(chatHideButton);
                             chatWindow.addControl4(chatCloseButton);
                             chatWindow.addControl1(chatShowButton);
                             chatText.setText(selectedUser.name);
                         }
+
                     })
                 })
             })
@@ -227,6 +231,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                 }
                 socket.emit("Message", JSON.stringify(message));
                 TextArea.appendText(name + " : " + text);
+                TextField.setText("");
             }
         })  
     })
