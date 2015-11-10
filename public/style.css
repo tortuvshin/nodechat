@@ -79,3 +79,21 @@ body .mainTable{
 	border: 1px solid gray;
 	margin: auto;
 }
+.RegisterWindow
+{
+	position: absolute;
+    background-color: rgba(30,20,20, 0.3);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.RegisterWindow>[toroo-class = row]>[toroo-class = cell]{
+	vertical-align: middle;
+}
+.RegisterWindow .RegisterPanel
+{
+	background-color: white;
+	border: 1px solid gray;
+	margin: auto;
+}
