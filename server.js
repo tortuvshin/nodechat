@@ -75,9 +75,10 @@ SocketServer.sockets.on('connection', function(socket){
         name : clients[SessionID].name,
         authorized :  clients[SessionID].authorized,
         date : new Date()
+
     });
     clients[SessionID].sockets.push(socket);
-
+    console.log("=================InitSession================="+clients[SessionID].sockets.push(socket));
     socket.on("Message", function(data){
         var message = JSON.parse(data);
         var sendingMessage = message;
@@ -91,20 +92,21 @@ SocketServer.sockets.on('connection', function(socket){
         })
     })
 
-    socket.on("Register", function(){
+    socket.on("Register", function(data){
         if(data.user.username == '' || data.user.password == '' || data.user.email == ''){
                 console.log("fields null");
             }
             else{
-                db.query('SELECT * FROM `users` WHERE `username` LIKE "'+data.user.username+'"', function(error,result)
+                Database.query('SELECT * FROM `users` WHERE `username` LIKE "'+data.user.username+'"', function(error,result)
                 {
                     if(result.length > 0){
                         console.log("already user");
                     }
                     else{
-                        db.query('INSERT INTO users VALUES ("' + data.user.username +
+                        Database.query('INSERT INTO users VALUES ("' + data.user.username +
                                                             '","' + data.user.password + 
-                                                            '","'+ data.user.email +'")', function(error,result)
+                                                            '","'+ data.user.email +'")',
+                                                            function(error,result)
                         {
                             if(error)
                             {
@@ -121,9 +123,11 @@ SocketServer.sockets.on('connection', function(socket){
     })
 
     socket.on("LogIn", function(data){  
-        db.query('SELECT * FROM `users` WHERE `username` LIKE "'+data.user.username+'" AND `password` LIKE "'+data.user.password+'"', function(error,result)
+        Database.query('SELECT * FROM `users` WHERE `username` LIKE "'
+            +data.user.username+'" AND `password` LIKE "'
+            +data.user.password+'"',
+        function(error,result)
         {
-            console.log("Result : "+result);
             if(error)
             {
                 throw error;
@@ -132,27 +136,35 @@ SocketServer.sockets.on('connection', function(socket){
                 console.log("fields null");
             }
             else if(result.length > 0){
-                console.log("");
-                socket.on("loginClient", function(name){
+                console.log("server login Correct");
+                socket.on("LoginClient", function(name){
                     clients[SessionID].name = name;
                     clients[SessionID].authorized = true;
                     var list = [];
                     Object.keys(clients).forEach(function(id, i){
-                        if(clients[id].authorized == true) list.push({ id: id, name: clients[id].name, date: clients[id].date })
+                        if(clients[id].authorized == true) 
+                            list.push({ 
+                                id: id,
+                                name: clients[id].name, 
+                                date: clients[id].date 
+                            })
                     })
                     socket.emit("OnlineUsers", JSON.stringify(list));
                     Object.keys(clients).forEach(function(id, i){
                         if(clients[id].authorized == true && id != SessionID) {
                             clients[id].sockets.forEach(function(sock, i){
                                 sock.emit("OnlineUsers", JSON.stringify(list));
+                                console.log(sock.emit("OnlineUsers", JSON.stringify(list)));
                             })
                         }
                     })    
                 })
-                console.log("LoginCorrect");   
+                console.log("LoginCorrect");
+                socket.emit("LoginCorrect");   
             }
             else{
-                console.log("LoginIncorrect");
+
+                console.log("server LoginIncorrect: "+data.user.username);
             }
         })   
     })

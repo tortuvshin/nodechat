@@ -27,11 +27,11 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             var publicChatTable = new table();
             var onlineUsersTable = new table();
 
-            var publicMessageTextArea = new textarea();
-            var publicMessageTextField = new textfield();
-            var publicMessageSendButton = new button("Илгээх");
+            var TextArea = new textarea();
+            var TextField = new textfield();
+            var SendButton = new button("Илгээх");
             var loginButton = new button("Нэвтрэх");
-            var signupButton = new button("Бүртгүүлэх");
+            var registerButton = new button("Бүртгүүлэх");
 
             doc.append(mainTable);
 
@@ -45,7 +45,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             headerTable.addRow();
             headerTable.addCell(0);
             headerTable.addCellContentOneRow(0,0,loginButton);
-            headerTable.addCellContentOneRow(0,0,signupButton);
+            headerTable.addCellContentOneRow(0,0,registerButton);
 
             chatTable.addRow();
             chatTable.addRow();
@@ -61,9 +61,9 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             publicChatTable.addRow();
             publicChatTable.addCell(0);
             publicChatTable.addCell(1);
-            publicChatTable.addCellContent(0,0,publicMessageTextArea);
-            publicChatTable.addCellContentOneRow(1,0,publicMessageTextField);
-            publicChatTable.addCellContentOneRow(1,0,publicMessageSendButton);
+            publicChatTable.addCellContent(0,0,TextArea);
+            publicChatTable.addCellContentOneRow(1,0,TextField);
+            publicChatTable.addCellContentOneRow(1,0,SendButton);
 
             mainTable._view.attr("class","mainTable");
             headerTable._view.attr("class","headerTable");
@@ -71,41 +71,66 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             publicChatTable._view.attr("class","publicChatTable");
 
             window.socket = io.connect();
-
             var selectedUser = {};
+            window.chatWindows = {};
+
             socket.on('connect', function(){
                 socket.on("InitSession", function(data){
-                    jQuery.cookie("SessionID", data.sid, { path : '/'});
-                    jQuery(loginButton._view).click(function(){
+                    jQuery.cookie("SessionID", 
+                        data.sid, 
+                        { 
+                            path : '/'
+                        }
+                    );
+                    if(data.authorized != true){
                         require(["login.js"],function(LoginWindow){
                             var loginWindow = new LoginWindow();
                         })
-                    })
-                });
-                socket.on("OnlineUsers", function(data){
-                    var online = JSON.parse(data);
-                    online.forEach(function(client, i){
-                        onlineUsersTable.addRow();
-                        onlineUsersTable.addCell(i);
-                        var onlineUserName = new linklabel();
-                        onlineUserName.setText(client.name);
-                        onlineUsersTable.addCellContent(i,0,onlineUserName);
+                    } else {
+                        alert("Login correct user name: " +data.name);
+                        socket.emit("LoginClient", data.name);
+                    }
+    
+            });
+            jQuery(loginButton._view).click(function(){
+                require(["login.js"],function(LoginWindow){
+                    var loginWindow = new LoginWindow();
+                })
+            })
+            
+            jQuery(registerButton._view).click(function(){
+                require(["register.js"],function(RegisterWindow){
+                    var RegisterWindow = new RegisterWindow();
+                })
+            })
+
+            socket.on("OnlineUsers", function(data){
+                var online = JSON.parse(data);
+                online.forEach(function(client, i){
+                    onlineUsersTable.addRow();
+                    onlineUsersTable.addCell(i);
+                    var onlineUserName = new linklabel();
+                    onlineUserName.setText(client.name);
+                    onlineUsersTable.addCellContent(i,0,onlineUserName);
+                    jQuery(onlineUserName._view).on("click",function(){
+                        selectedUser = {name : client.name, id : client.id};
                     })
                 })
             })
-            socket.on("Message", function(data){
-                var message = JSON.parse(data);
-                publicMessageTextArea.appendText(message.name + ' : ' + message.text +' at '+message.date);
-                console.log("Message"+message.name + ' : ' + message.text +' at '+message.date);
-            })
-            jQuery(publicMessageSendButton._view).on("click", function(){
-                var text = publicMessageTextField.getText();
-                var message = {
-                    text: text,
-                    //end_client : selectedUser.id      
-                }
-                socket.emit("Message", JSON.stringify(message));
-                publicMessageTextArea.appendText(name + " : " + text);
-            })  
         })
+        socket.on("Message", function(data){
+            var message = JSON.parse(data);
+            TextArea.appendText(message.name + ' : ' + message.text +' at '+message.date);
+            console.log("Message"+message.name + ' : ' + message.text +' at '+message.date);
+        })
+        jQuery(SendButton._view).on("click", function(){
+            var text = TextField.getText();
+            var message = {
+                text: text,
+                //end_client : selectedUser.id      
+            }
+            socket.emit("Message", JSON.stringify(message));
+            TextArea.appendText(name + " : " + text);
+        })  
+    })
 });
