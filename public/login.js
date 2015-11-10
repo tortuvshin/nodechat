@@ -15,8 +15,8 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
         Panel.addCell(1);
         Panel.addCell(2);
 
-        var username = new textfield();
-        var password = new textfield();
+        var usernamefield = new textfield();
+        var passwordfield = new textfield();
         var loginButton = new button("Нэвтрэх");
         var registerButton = new button("Бүртгүүлэх");
         var exit = new button("Гарах");
@@ -29,14 +29,21 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
 
         Panel._view.attr("class", "LoginPanel");
         
-        Panel.addCellContentOneRow(0, 0, username);
-        Panel.addCellContentOneRow(1, 0, password);
-        Panel.addCellContentOneRow(2, 0, loginButton);
-        Panel.addCellContentOneRow(2, 0, registerButton);	
-        Panel.addCellContentOneRow(2, 0, exit);
-    
-        jQuery(loginButton._view).click(function(){
-        })
+        Panel.addCellContentOneRow(0, 0, usernamefield);
+	    Panel.addCellContentOneRow(1, 0, passwordfield);
+	    Panel.addCellContentOneRow(2, 0, loginButton);
+	    Panel.addCellContentOneRow(2, 0, registerButton);	
+	    Panel.addCellContentOneRow(2, 0, exit);	
+		jQuery(loginButton._view).click(function(){
+			var userInfo = {
+				username : usernamefield.getText(),
+				password : passwordfield.getText()
+			}
+			window.socket.emit("LogIn", {user:userInfo});
+			name = userInfo.username;
+			window.socket.emit("LoginClient", name);	
+		})
+    	
         jQuery(registerButton._view).click(function(){
         	require(["register.js"],function(RegisterWindow){
         		own._view.remove();
@@ -49,6 +56,9 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
         Panel._view.on("click",function(){
             jQuery("body .LoginPanel").removeClass("active");
             Panel._view.addClass("active");
+        })
+        socket.on("LoginCorrect",function(){
+        	own._view.remove();
         })
     }
     return LoginWindow;

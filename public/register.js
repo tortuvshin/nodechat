@@ -16,9 +16,9 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
         Panel.addCell(2);
         Panel.addCell(3);
 
-        var username = new textfield();
-        var email = new textfield();
-        var password = new textfield();
+        var usernamefield = new textfield();
+        var emailfield = new textfield();
+        var passwordfield = new textfield();
 
         var registerButton = new button("Бүртгүүлэх");
         var loginButton = new button("Нэвтрэх");
@@ -32,14 +32,20 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
 
         Panel._view.attr("class", "RegisterPanel");
         
-        Panel.addCellContentOneRow(0, 0, username);
-        Panel.addCellContentOneRow(1, 0, email);
-        Panel.addCellContentOneRow(2, 0, password);
+        Panel.addCellContentOneRow(0, 0, usernamefield);
+        Panel.addCellContentOneRow(1, 0, emailfield);
+        Panel.addCellContentOneRow(2, 0, passwordfield);
         Panel.addCellContentOneRow(3, 0, registerButton);
         Panel.addCellContentOneRow(3, 0, loginButton);  
         Panel.addCellContentOneRow(3, 0, exit);
     
         jQuery(registerButton._view).click(function(){
+            var newUser = {
+                username : usernamefield.getText(),
+                password : passwordfield.getText(),
+                email : emailfield.getText()
+            }
+            window.socket.emit('Register', {user : newUser})
         })
         jQuery(loginButton._view).click(function(){
             require(["login.js"],function(LoginWindow){

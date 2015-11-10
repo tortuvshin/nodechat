@@ -6,7 +6,7 @@ define(function(){
 	linkLabel = function LinkLabel(caption){
 		var own = this;
         own._view = jQuery(_linklabel_);
-        own._view.html(text);
+        own._view.html(caption);
         own.setText = function(caption){ 
             own._view.html(caption)
         }
