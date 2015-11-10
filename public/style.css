@@ -5,6 +5,7 @@ body{
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-size: 13px;
 	color: #555;
+	text-align: center;
     background-color: #fff;
     vertical-align: top;
 }
@@ -27,9 +28,6 @@ body{
 	display: table-cell;
 	vertical-align: top;
 	padding: 5px 5px 0px 5px;
-  	border: 1px solid #ccc;
-  	border-radius: 4px;
-
 }
 [toroo-class = button]
 {
@@ -71,6 +69,26 @@ body{
 }
 [toroo-class = textfield]{
 	margin: 5px 5px 5px 5px;
+	width: 200px;
+	display: inline-block;
+  	height: 14px;
+  	padding: 6px 25px;
+  	font-size: 14px;
+  	line-height: 1.42857143;
+  	color: #555;
+  	background-color: #fff;
+  	background-image: none;
+  	border: 1px solid #ccc;
+  	border-radius: 4px;
+  	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+[toroo-class = passwordfield]{
+	margin: 5px 5px 5px 5px;
+	width: 200px;
 	display: inline-block;
   	height: 14px;
   	padding: 6px 25px;
@@ -94,42 +112,23 @@ body .mainTable{
 	vertical-align: top;
 }
 
-.headerTable{
-	width: 100%;
-	text-align: right;
-}
-.chatTable
-{
-	width: 100%;
-}
-.infoTable
-{
-	float: left;
-	width: 100%;
-}
-.groupChatTable
-{
-	width: 100%;
-}
-.buddyTable
-{
-	width: 100%;
-	float: right;
-}
-.LoginWindow
-{
+.headerTable {width: 100%;text-align: right;}
+.chatTable{width: 100%;}
+.infoTable{float: left;width: 100%;}
+.groupChatTable{width: 100%;}
+.buddyTable{width: 100%;float: right;}
+.LoginWindow{
 	position: absolute;
+	background-image: url("/assets/images/background.jpg");
+	background-repeat: repeat-x;
     background-color: rgba(30,20,20, 0.3);
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
 }
-.LoginWindow>[toroo-class = row]>[toroo-class = cell]{
-	vertical-align: middle;
-}
-.LoginWindow .LoginPanel
-{
+.LoginWindow>[toroo-class = row]>[toroo-class = cell]{vertical-align: middle;}
+.LoginWindow .LoginPanel{
 	background-color: white;
 	border: 1px solid gray;
 	margin: auto;
@@ -138,6 +137,8 @@ body .mainTable{
 .RegisterWindow
 {
 	position: absolute;
+	background-image: url("/assets/images/background.jpg");
+	background-repeat: repeat-x;
     background-color: rgba(30,20,20, 0.3);
     width: 100%;
     height: 100%;
@@ -221,6 +222,18 @@ body .mainTable{
 .usernamefield{background:url(/assets/images/user.png) no-repeat left center; }
 .emailfield{background:url(/assets/images/mail.png) no-repeat left center; }
 .passwordfield{background:url(/assets/images/password.png) no-repeat left center; }
+.registerError, .loginError{
+	color: #a94442;
+	padding: 10px 10px 10px 10px;
+  	background-color: #f2dede;
+    margin: 0px 0px 0px 0px;
+  	border: 1px solid #ebccd1;
+  	border-radius: 4px;
+  	top: 30px;
+  	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+  	box-shadow: inset 0 1px 1px rgba(0,0,0,.05);	
+}
+
 @media(min-width: 1200px) and (max-width: 1440px){
 
 	.infoTable
@@ -249,7 +262,7 @@ body .mainTable{
 	{
 		float: left;
 	}
-	}
+}
 @media(min-width: 800px) and (max-width: 999px){
 	.infoTable
 	{
@@ -263,7 +276,7 @@ body .mainTable{
 	{
 		float: left;
 	}
-	}
+}
 @media(min-width: 600px) and (max-width: 799px){
 	.infoTable
 	{
@@ -277,7 +290,7 @@ body .mainTable{
 	{
 		float: left;
 	}
-	}
+}
 @media(max-width: 599px){
 		.infoTable
 	{
@@ -292,4 +305,4 @@ body .mainTable{
 	{
 		float: left;
 	}
-	}
+}

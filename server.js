@@ -94,13 +94,13 @@ SocketServer.sockets.on('connection', function(socket){
 
     socket.on("Register", function(data){
         if(data.user.username == '' || data.user.password == '' || data.user.email == ''){
-                console.log("fields null");
+                socket.emit("RegisterNulls");
             }
             else{
                 Database.query('SELECT * FROM `users` WHERE `username` LIKE "'+data.user.username+'"', function(error,result)
                 {
                     if(result.length > 0){
-                        console.log("already user");
+                        socket.emit("AlreadyUser");
                     }
                     else{
                         Database.query('INSERT INTO users VALUES ("' + data.user.username +
@@ -133,7 +133,7 @@ SocketServer.sockets.on('connection', function(socket){
                 throw error;
             }
             else if (data.user.username == '' || data.user.password == ''){
-                console.log("fields null");
+                socket.emit("LoginNulls");
             }
             else if(result.length > 0){
                 console.log("server login Correct");
@@ -165,6 +165,7 @@ SocketServer.sockets.on('connection', function(socket){
             else{
 
                 console.log("server LoginIncorrect: "+data.user.username);
+                socket.emit("LoginIncorrect");
             }
         })   
     })

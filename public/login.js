@@ -1,5 +1,5 @@
-define(["/table.js","/button.js","/textfield.js","/label.js",'css!/style.css'], 
-	function(table,button,textfield,label){
+define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js","ul.js",'css!/style.css'], 
+	function(table,button,textfield,label,passwordfields,ul){
     var LoginWindow = function(){
 
         var own = this;
@@ -11,18 +11,21 @@ define(["/table.js","/button.js","/textfield.js","/label.js",'css!/style.css'],
         Panel.addRow();
         Panel.addRow();
         Panel.addRow();
+        Panel.addRow();
 
         Panel.addCell(0);
         Panel.addCell(1);
         Panel.addCell(2);
         Panel.addCell(3);
+        Panel.addCell(4);
         var titlelabel = new label("НЭВТРЭХ ХЭСЭГ");
         titlelabel._view.attr("class","titlelabel");
         var usernamefield = new textfield();
         usernamefield._view.attr("class","usernamefield");
-        var passwordfield = new textfield();
+        var passwordfield = new passwordfields();
         passwordfield._view.attr("class","passwordfield");
-
+        var loginError = new ul();
+        loginError._view.attr("class","loginError");
         var loginButton = new button("Нэвтрэх");
         var registerButton = new button("Бүртгүүлэх");
 
@@ -37,8 +40,10 @@ define(["/table.js","/button.js","/textfield.js","/label.js",'css!/style.css'],
         Panel.addCellContentOneRow(0, 0, titlelabel);
         Panel.addCellContentOneRow(1, 0, usernamefield);
 	    Panel.addCellContentOneRow(2, 0, passwordfield);
-	    Panel.addCellContentOneRow(3, 0, loginButton);
-	    Panel.addCellContentOneRow(3, 0, registerButton);	
+	    Panel.addCellContentOneRow(3 ,0, loginError);
+	    Panel.addCellContentOneRow(4, 0, loginButton);
+	    Panel.addCellContentOneRow(4, 0, registerButton);	
+	    loginError._view.hide();
 		jQuery(loginButton._view).click(function(){
 			var userInfo = {
 				username : usernamefield.getText(),
@@ -74,6 +79,14 @@ define(["/table.js","/button.js","/textfield.js","/label.js",'css!/style.css'],
         })
         socket.on("LoginCorrect",function(){
         	own._view.remove();
+        })
+        socket.on("LoginIncorrect",function(){
+	        	loginError._view.show();
+	        	loginError.setText("Хэрэглэгчийн нэр, нууц үг буруу байна.");	
+        })
+        socket.on("LoginNulls",function(){
+        	loginError._view.show();
+        	loginError.setText("Бүх талбаруудыг бөглөнө үү !");
         })
     }
     return LoginWindow;

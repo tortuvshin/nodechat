@@ -184,7 +184,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                 chatTextArea.appendText(message.name + ' : ' + message.text +' at '+message.date);
                             })
                             $(chatCloseButton._view).on("click",function(){
-                                delete chatWins[client.id];
+                                delete chatWindows[client.id];
                                 chatWindow._view.remove();
                                 delete chatWindow;
                             })
