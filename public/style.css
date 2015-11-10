@@ -202,7 +202,8 @@ body .mainTable{
 }
 .mainTable .chatTable .groupChatTable .TextField
 {
-	width: 95%;
+	width: 93%;
+	background: url(/assets/images/send.png) no-repeat left center;
 }
 .mainTable .chatTable .infoTable .infoHeader
 {
