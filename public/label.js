@@ -6,7 +6,7 @@ define(function(){
 	label = function Label(caption){
 		var own = this;
         own._view = jQuery(_label_);
-        own._view.html(text);
+        own._view.html(caption);
         own.setText = function(caption){ 
             own._view.html(caption)
         }

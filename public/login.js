@@ -19,7 +19,6 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
         var passwordfield = new textfield();
         var loginButton = new button("Нэвтрэх");
         var registerButton = new button("Бүртгүүлэх");
-        var exit = new button("Гарах");
 
         Window.addCellContentOneRow(0, 0, Panel);
 
@@ -33,7 +32,6 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
 	    Panel.addCellContentOneRow(1, 0, passwordfield);
 	    Panel.addCellContentOneRow(2, 0, loginButton);
 	    Panel.addCellContentOneRow(2, 0, registerButton);	
-	    Panel.addCellContentOneRow(2, 0, exit);	
 		jQuery(loginButton._view).click(function(){
 			var userInfo = {
 				username : usernamefield.getText(),
@@ -50,9 +48,7 @@ define(["/table.js","/button.js","/textfield.js",'css!/style.css'],
         		var register = new RegisterWindow();
         	})
         })
-        jQuery(exit._view).click(function(){
-                own._view.remove();
-        })
+        
         Panel._view.on("click",function(){
             jQuery("body .LoginPanel").removeClass("active");
             Panel._view.addClass("active");
