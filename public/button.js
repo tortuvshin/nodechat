@@ -8,7 +8,7 @@ define(['css!/style.css'], function(){
         own.caption = caption;
         own._view = jQuery(_button_);
         own._view.val(caption);
-        jQuery(own._view).on("clickButton", function(){
+        jQuery(own._view).on("click", function(){
         })
     }
     return Button;

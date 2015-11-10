@@ -22,7 +22,6 @@ define(["css!/style.css"], function(){
 			var cell = {};
 			cell._view = jQuery(_table_);
 			cell._view.attr("toroo-class","cell");
-			cell._view.html("&nbsp");
 			own.rows[row_index].cells.push(cell);
 			own.rows[row_index]._view.append(cell._view);
 		}

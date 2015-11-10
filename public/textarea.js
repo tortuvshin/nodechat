@@ -7,7 +7,7 @@ define(["css!/style.css"], function(){
         var own = this;
         var rows = [];
         own._view = jQuery(_textarea_);
-        own._view.attr("css_class","textArea");
+        own._view.attr("toroo-class","textarea");
         own.setText = function(value){ 
             jQuery(own._view).val(value);
         }

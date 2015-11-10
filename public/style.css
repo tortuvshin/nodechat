@@ -6,24 +6,76 @@ body{
 	  font-size: 14px;
 	  line-height: 1.42857143;
 	  color: #333;
-	  background-color: black;
 }
 [toroo-class = table]
 {
 	border-radius: 1px;
+	border: solid 1px black;
 	display: table; 
 }
 [toroo-class = row]
 {
 	display: table-row;
+
+	border: solid 1px black;
 }
 [toroo-class = cell]
 {
 	display: table-cell;
+
+	border: solid 1px black;
 }
-body [toroo-class = mainTable]{
+[toroo-class = button]
+{
+	cursor: pointer;
+}
+[toroo-class = textarea]{
 	background-color: white;
+	margin: 5px 5px 5px 5px;
+	height: 200px;
+	width: 300px;
+}
+[toroo-class = textfield]{
+	display: inline-block;
+  	height: 14px;
+  	padding: 6px 12px;
+  	font-size: 14px;
+  	line-height: 1.42857143;
+  	color: #555;
+  	background-color: #fff;
+}
+body .mainTable{
 	border: solid 1px black;
 	width: 100%;
 	height: 100%;
+}
+.mainTable>[toroo-class=row]>[toroo-class=cell]:last-child{
+	width: 300px;
+}
+.headerTable{
+	width: 100%;
+}
+.chatTable
+{
+	width: 100%;
+}
+
+
+.LoginWindow
+{
+	position: absolute;
+    background-color: rgba(30,20,20, 0.3);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.LoginWindow>[toroo-class = row]>[toroo-class = cell]{
+	vertical-align: middle;
+}
+.LoginWindow .LoginPanel
+{
+	background-color: white;
+	border: 1px solid gray;
+	margin: auto;
 }

@@ -3,7 +3,7 @@
 */
 define(["css!/style.css"], function(){
     var _textfield_ = "<input type=text>";
-    var textFieldClass = function(){
+    var textfield = function(){
         var own = this;
         own._view = jQuery(_textfield_);
         own._view.attr("toroo-class","textfield");
