@@ -59,6 +59,9 @@ pool.getConnection(function(error,conn){
 SocketServer.sockets.on('connection', function(socket){
     var cookies = cookie(socket.handshake.headers.cookie);
     var SessionID = decodeURIComponent(cookies["SessionID"]);
+    console.log("Handshake: ");
+    console.log(socket.handshake);
+    console.log(socket.handshake.address.address);
     if(SessionID === "undefined" || clients[SessionID] === undefined) {
         var ip = socket.handshake.address.address;
         var port = socket.handshake.address.port;
@@ -77,8 +80,12 @@ SocketServer.sockets.on('connection', function(socket){
         date : new Date()
 
     });
+    console.log("Time: "+socket.handshake.time);
     clients[SessionID].sockets.push(socket);
-    console.log("=================InitSession================="+clients[SessionID].sockets.push(socket));
+    console.log("=======InitSession========");
+    console.log(clients[SessionID].sockets.push(socket));
+
+
     socket.on("Message", function(data){
         var message = JSON.parse(data);
         var sendingMessage = message;
@@ -95,27 +102,20 @@ SocketServer.sockets.on('connection', function(socket){
     socket.on("Register", function(data){
         if(data.user.username == '' || data.user.password == '' || data.user.email == ''){
                 socket.emit("RegisterNulls");
-            }
-            else{
-                Database.query('SELECT * FROM `users` WHERE `username` LIKE "'+data.user.username+'"', function(error,result)
-                {
+            }else{
+                Database.query('SELECT * FROM `users` WHERE `username` LIKE "'+data.user.username+'"', 
+                    function(error,result){
                     if(result.length > 0){
                         socket.emit("AlreadyUser");
-                    }
-                    else{
-                        Database.query('INSERT INTO users VALUES ("' + data.user.username +
-                                                            '","' + data.user.password + 
-                                                            '","'+ data.user.email +'")',
-                                                            function(error,result)
-                        {
-                            if(error)
-                            {
-                                throw error;
-                            }
-                            else{
-                                    console.log("Result : "+result);
+                    }else{
+                        Database.query('INSERT INTO users VALUES ("' + data.user.username +'","' + data.user.password + '","'+ data.user.email +'")',
+                            function(error,result){
+                            if(error) { throw error; }
+                            else { 
+                                console.log("Result : ");
+                                console.log(result);
                                 }
-                            console.log("Error : "+error);
+                            console.log(error);
                         })
                     }
                 })

@@ -18,8 +18,10 @@ require.config({
 
 require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/style.css"], function(io){
     window.doc = new Body();
-    require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js", "textfield.js","chat.js"],
-        function(table, button, textarea, linklabel, label,textfield,chat){
+    require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js", "textfield.js","chat.js","login.js"],
+        function(table, button, textarea, linklabel, label,textfield,chat,login){
+
+            var loginWindow = new login();
 
             var mainTable = new table();
             var headerTable = new table();
@@ -115,6 +117,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                             var loginWindow = new LoginWindow();
                         })
                     } else {
+                        loginWindow.remove();
                         alert("Login correct user name: " +data.name);
                         socket.emit("LoginClient", data.name);
                     }

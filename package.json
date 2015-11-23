@@ -1,0 +1,17 @@
+{
+  "name": "NodeChat",
+  "description": "My first chat application using nodeJs and socket.io",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  
+  "dependencies": {
+    "socket.io": "*",
+    "mysql": "*"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
