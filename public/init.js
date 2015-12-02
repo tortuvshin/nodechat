@@ -18,10 +18,8 @@ require.config({
 
 require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/style.css"], function(io){
     window.doc = new Body();
-    require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js", "textfield.js","chat.js","login.js"],
-        function(table, button, textarea, linklabel, label,textfield,chat,login){
-
-            var loginWindow = new login();
+    require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js", "textfield.js","chat.js"],
+        function(table, button, textarea, linklabel, label,textfield,chat){
 
             var mainTable = new table();
             var headerTable = new table();
@@ -29,14 +27,13 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             var groupChatTable = new table();
             var infoTable = new table();
             var buddyTable = new table();
-            var onlineUsersTable = new table();
 
             var TextArea = new textarea();
             var TextField = new textfield();
             var SendButton = new button("Илгээх");
             var loginButton = new button("Нэвтрэх");
             var registerButton = new button("Бүртгүүлэх");
-            var onlineUserName = new linklabel();
+            
             doc.append(mainTable);
 
             TextArea._view.attr("class","TextArea");
@@ -98,7 +95,6 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             infoTable._view.attr("class","infoTable");
             groupChatTable._view.attr("class","groupChatTable");
             buddyTable._view.attr("class","buddyTable");
-            onlineUsersTable._view.attr("class","onlineUsersTable");
 
             window.socket = io.connect();
             var selectedUser = {};
@@ -117,7 +113,6 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                             var loginWindow = new LoginWindow();
                         })
                     } else {
-                        loginWindow.remove();
                         alert("Login correct user name: " +data.name);
                         socket.emit("LoginClient", data.name);
                     }
@@ -137,12 +132,15 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
 
             socket.on("OnlineUsers", function(data){
                 var online = JSON.parse(data);
+                var onlineUsersTable = new table();
+                onlineUsersTable._view.attr("class","onlineUsersTable");
                 online.forEach(function(client, i){
                     onlineUsersTable.addRow();
                     onlineUsersTable.addCell(i);
+                    var onlineUserName = new linklabel();
                     onlineUserName.setText(client.name);
                     onlineUsersTable.addCellContent(i,0,onlineUserName);
-                    buddyTable.addCellContent(1,0,onlineUsersTable);
+                    
                     jQuery(onlineUserName._view).on("click",function(){
                         selectedUser = {
                             name : client.name, 
@@ -218,6 +216,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
 
                     })
                 })
+                buddyTable.addCellContent(1,0,onlineUsersTable);
             })
         })
         socket.on("Message", function(data){
