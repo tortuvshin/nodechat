@@ -5,7 +5,6 @@ body{
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-size: 13px;
 	color: #555;
-	text-align: center;
     background-color: #fff;
     vertical-align: top;
 }
@@ -14,9 +13,7 @@ body{
 {
 	display: table; 
 	vertical-align: top;
-  	border: 1px solid #ccc;
-  	border-radius: 4px;
-	
+	border: 1px solid #ccc;
 }
 [toroo-class = row]
 {
@@ -105,6 +102,10 @@ body{
   	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
+[toroo_class = label]{
+	margin: 5px 5px 5px 5px;
+	text-align: center;
+}
 body .mainTable{
 	width: 100%;
 	height: 100%;
@@ -130,9 +131,7 @@ body .mainTable{
 .LoginWindow>[toroo-class = row]>[toroo-class = cell]{vertical-align: middle;}
 .LoginWindow .LoginPanel{
 	background-color: white;
-	border: 1px solid gray;
 	margin: auto;
-	border-radius: 10px;
 }
 .RegisterWindow
 {
@@ -218,10 +217,23 @@ body .mainTable{
 	text-align: left;
 	background:url(/assets/images/group.png) no-repeat left center; 
 }
-.titlelabel{font-size: 15px;}
-.usernamefield{background:url(/assets/images/user.png) no-repeat left center; }
-.emailfield{background:url(/assets/images/mail.png) no-repeat left center; }
-.passwordfield{background:url(/assets/images/password.png) no-repeat left center; }
+.titlelabel{
+	font-size: 15px;
+	text-align: center;
+}
+.usernamefield{
+	background:url(/assets/images/user.png) no-repeat left center;
+}
+.emailfield{
+	background:url(/assets/images/mail.png) no-repeat left center; 
+}
+.passwordfield{
+	background:url(/assets/images/password.png) no-repeat left center; 
+}
+.usernamelabel{
+		place
+}
+
 .registerError, .loginError{
 	color: #a94442;
 	padding: 10px 10px 10px 10px;

@@ -115,20 +115,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                     } else {
                         alert("Login correct user name: " +data.name);
                         socket.emit("LoginClient", data.name);
-                    }
-    
-            });
-            jQuery(loginButton._view).click(function(){
-                require(["login.js"],function(LoginWindow){
-                    var loginWindow = new LoginWindow();
-                })
-            })
-            
-            jQuery(registerButton._view).click(function(){
-                require(["register.js"],function(RegisterWindow){
-                    var RegisterWindow = new RegisterWindow();
-                })
-            })
+                }
 
             socket.on("OnlineUsers", function(data){
                 var online = JSON.parse(data);
@@ -218,6 +205,24 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                 })
                 buddyTable.addCellContent(1,0,onlineUsersTable);
             })
+    
+            });
+            jQuery(loginButton._view).click(function(){
+                require(["login.js"],function(LoginWindow){
+                    var loginWindow = new LoginWindow();
+                    loginWindow.url = "/login";
+                    navigate(this.url);
+                })
+            })
+            
+            jQuery(registerButton._view).click(function(){
+                require(["register.js"],function(RegisterWindow){
+                    var RegisterWindow = new RegisterWindow();
+                    RegisterWindow.url = "/register";
+                    navigate(this.url);
+                })
+            })
+
         })
         socket.on("Message", function(data){
             var message = JSON.parse(data);
@@ -229,12 +234,16 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                 var text = TextField.getText();
                 var message = {
                     text: text,
-                    //end_client : selectedUser.id      
+                    end_client : selectedUser.id      
                 }
                 socket.emit("Message", JSON.stringify(message));
                 TextArea.appendText(name + " : " + text);
                 TextField.setText("");
             }
-        })  
+        }) 
+        function navigate(url){
+            if (!url) url = "/"
+                history.pushState(url, url, url);
+        }
     })
 });
