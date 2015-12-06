@@ -90,8 +90,20 @@ SocketServer.sockets.on('connection', function(socket){
         sendingMessage.name = clients[SessionID].name;
         clients[message.end_client].sockets.forEach(function(socket, i){
             socket.emit("Message", JSON.stringify(sendingMessage));
-            console.log("Sending message server to clients");
+            console.log("Sending message server to client to client");
         })
+    })
+
+    socket.on("PublicMessage", function(data){
+        var message = JSON.parse(data);
+        var sendingMessage = message;
+        sendingMessage.date = new Date().toISOString().
+        replace(/T/, ' ').    
+        replace(/\..+/, '')  ;
+        sendingMessage.from = SessionID;
+        sendingMessage.name = clients[SessionID].name;
+        socket.emit("PublicMessage", JSON.stringify(sendingMessage));
+        console.log("Sending message server to clients");
     })
 
     socket.on("Register", function(data){

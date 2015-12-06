@@ -115,6 +115,9 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                     } else {
                         alert("Login correct user name: " +data.name);
                         socket.emit("LoginClient", data.name);
+                        var username = new label(data.name);
+                        infoTable.addCellContentOneRow(1,0,username);
+
                 }
 
             socket.on("OnlineUsers", function(data){
@@ -153,7 +156,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                             chatShowButton._view.attr("class","showButton");
                             
                             chatWindows[client.id] = chatWindow;
-                            chatWindows[client.id]._view.css({"right": Object.keys(chatWindows).length * 100 + 'px'});
+                            chatWindows[client.id]._view.css({"right": Object.keys(chatWindows).length * 150 + 'px'});
 
                             $(chatTextField._view).keypress(function(e){
                                 if(e.keyCode == 13){
@@ -163,13 +166,13 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                         end_client : selectedUser.id
                                     }
                                     socket.emit("Message", JSON.stringify(message));
-                                    chatTextArea.appendText(selectedUser.name + " : " + text);
+                                    chatTextArea.appendText(text);
                                     chatTextField.setText("");
                                     }
                             })  
                             socket.on("Message", function(data){
                                 var message = JSON.parse(data);
-                                chatTextArea.appendText(message.name + ' : ' + message.text +' at '+message.date);
+                                chatTextArea.appendText(message.text +' at '+message.date);
                             })
                             $(chatCloseButton._view).on("click",function(){
                                 delete chatWindows[client.id];
@@ -224,7 +227,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             })
 
         })
-        socket.on("Message", function(data){
+        socket.on("PublicMessage", function(data){
             var message = JSON.parse(data);
             TextArea.appendText(message.name + ' : ' + message.text +' at '+message.date);
             console.log("Message"+message.name + ' : ' + message.text +' at '+message.date);
@@ -233,10 +236,9 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             if(e.keyCode == 13){
                 var text = TextField.getText();
                 var message = {
-                    text: text,
-                    end_client : selectedUser.id      
+                    text: text   
                 }
-                socket.emit("Message", JSON.stringify(message));
+                socket.emit("PublicMessage", JSON.stringify(message));
                 TextArea.appendText(name + " : " + text);
                 TextField.setText("");
             }
