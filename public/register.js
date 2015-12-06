@@ -71,7 +71,7 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
 
         jQuery(loginButton._view).click(function(){
             require(["login.js"],function(LoginWindow){
-                own._view.remove();
+                own._view.remove(); 
                 var login = new LoginWindow();
             })
         })
@@ -79,6 +79,12 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
         Panel._view.on("click",function(){
             jQuery("body .RegisterPanel").removeClass("active");
             Panel._view.addClass("active");
+        })
+        socket.on("RegisterCorrect",function(){
+            own._view.remove();
+            require(["login.js"],function(LoginWindow){
+                var login = new  LoginWindow();
+            })
         })
         socket.on("RegisterNulls",function(){
             registerError._view.show();

@@ -127,6 +127,7 @@ SocketServer.sockets.on('connection', function(socket){
                                 throw error;
                             }
                             else{
+                                    socket.emit("RegisterCorrect");
                                     console.log("Result : "+result);
                                 }
                             console.log("Error : "+error);
