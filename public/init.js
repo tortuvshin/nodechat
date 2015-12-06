@@ -162,12 +162,12 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                         text: text,
                                         end_client : selectedUser.id
                                     }
-                                    socket.emit("msg", JSON.stringify(message));
+                                    socket.emit("Message", JSON.stringify(message));
                                     chatTextArea.appendText(selectedUser.name + " : " + text);
                                     chatTextField.setText("");
                                     }
                             })  
-                            socket.on("msg", function(data){
+                            socket.on("Message", function(data){
                                 var message = JSON.parse(data);
                                 chatTextArea.appendText(message.name + ' : ' + message.text +' at '+message.date);
                             })
@@ -224,7 +224,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             })
 
         })
-        socket.on("Message", function(data){
+        socket.on("MessageClient", function(data){
             var message = JSON.parse(data);
             TextArea.appendText(message.name + ' : ' + message.text +' at '+message.date);
             console.log("Message"+message.name + ' : ' + message.text +' at '+message.date);
@@ -240,10 +240,15 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                 TextArea.appendText(name + " : " + text);
                 TextField.setText("");
             }
-        }) 
+        })
         function navigate(url){
             if (!url) url = "/"
                 history.pushState(url, url, url);
         }
+
+        window.onbeforeunload = function(){
+            socket.emit("disconnect")
+            return 'disconnect';
+        };
     })
 });

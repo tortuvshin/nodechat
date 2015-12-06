@@ -59,6 +59,7 @@ pool.getConnection(function(error,conn){
 SocketServer.sockets.on('connection', function(socket){
     var cookies = cookie(socket.handshake.headers.cookie);
     var SessionID = decodeURIComponent(cookies["SessionID"]);
+    console.log(socket.handshake);
     if(SessionID === "undefined" || clients[SessionID] === undefined) {
         var ip = socket.handshake.address.address;
         var port = socket.handshake.address.port;
@@ -87,8 +88,9 @@ SocketServer.sockets.on('connection', function(socket){
         replace(/\..+/, '')  ;
         sendingMessage.from = SessionID;
         sendingMessage.name = clients[SessionID].name;
-        clients[message].sockets.forEach(function(socket, i){
+        clients[message.end_client].sockets.forEach(function(socket, i){
             socket.emit("Message", JSON.stringify(sendingMessage));
+            console.log("Sending message server to clients");
         })
     })
 
@@ -189,16 +191,21 @@ SocketServer.sockets.on('connection', function(socket){
         }) 
     })
     socket.on("disconnect", function(){
-        if(SessionID === "") return;
-        if(clients[SessionID] && clients[SessionID].sockets.length == 0){
-            setTimeout(function(){ if(clients[SessionID].sockets.length == 0) { 
-                delete(clients[SessionID]);
-            clients[id].sockets.forEach(function(socket, i){
-                    socket.emit("list", JSON.stringify(list));
-                }) 
-            } 
-        },3000)
-        }
+        console.log("user disconnected");
+        if (SessionID === "") return;
+        if (clients[SessionID] && clients[SessionID].sockets.length == 0){
+            setTimeout(function(){
+                if (clients[SessionID].sockets.length == 0) {
+                    delete(clients[SessionID]);
+                    Object.keys(clients).forEach(function(sock, i){
+                        clients[id].sockets.forEach(function(sock, i){
+                            sock.emit("OnlineUsers",JSON.stringify(list));  
+                        })
+                    })      
+                    console.log("user disconnected");
+                };
+            },2000)
+        };
     })
 });
 
