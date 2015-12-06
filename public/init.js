@@ -224,7 +224,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             })
 
         })
-        socket.on("MessageClient", function(data){
+        socket.on("Message", function(data){
             var message = JSON.parse(data);
             TextArea.appendText(message.name + ' : ' + message.text +' at '+message.date);
             console.log("Message"+message.name + ' : ' + message.text +' at '+message.date);
