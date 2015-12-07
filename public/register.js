@@ -1,5 +1,5 @@
-define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js","ul.js",'css!/style.css'], 
-    function(table,button,textfield,label,passwordfields,ul){
+define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js","ul.js","linklabel.js",'css!/style.css'], 
+    function(table,button,textfield,label,passwordfields,ul,linklabel){
     var RegisterWindow = function(){
 
         var own = this;
@@ -32,6 +32,7 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
         registerError._view.attr("class","registerError");
         var registerButton = new button("Бүртгүүлэх");
         var loginButton = new button("Нэвтрэх");
+        var loginlinklabel = new linklabel();
 
         Window.addCellContentOneRow(0, 0, Panel);
 
@@ -81,10 +82,14 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
             Panel._view.addClass("active");
         })
         socket.on("RegisterCorrect",function(){
-            own._view.remove();
-            require(["login.js"],function(LoginWindow){
-                var login = new  LoginWindow();
-            })
+            registerError._view.show();
+            registerError.setText("Create new user");
+            setTimeout(function(){
+                own._view.remove();
+                require(["login.js"],function(LoginWindow){
+                    var login = new LoginWindow();
+                })
+            },3000)
         })
         socket.on("RegisterNulls",function(){
             registerError._view.show();
