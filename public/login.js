@@ -1,7 +1,6 @@
 define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js","ul.js",'css!/style.css'], 
 	function(table,button,textfield,label,passwordfields,ul){
     var LoginWindow = function(){
-
         var own = this;
         var Window = new table();
         Window.addRow();
@@ -94,11 +93,11 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
             Panel._view.addClass("active");
         })
         socket.on("LoginCorrect",function(){
-        	own._view.remove();
+            own._view.remove();
         })
         socket.on("LoginIncorrect",function(){
-	        	loginError._view.show();
-	        	loginError.setText("Хэрэглэгчийн нэр, нууц үг буруу байна.");	
+	        loginError._view.show();
+	        loginError.setText("Хэрэглэгчийн нэр, нууц үг буруу байна.");	
         })
         socket.on("LoginNulls",function(){
         	loginError._view.show();

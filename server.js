@@ -57,6 +57,7 @@ pool.getConnection(function(error,conn){
 });
 
 SocketServer.sockets.on('connection', function(socket){
+    console.log("new user connected");
     var cookies = cookie(socket.handshake.headers.cookie);
     var SessionID = decodeURIComponent(cookies["SessionID"]);
     console.log(socket.handshake);
@@ -89,6 +90,7 @@ SocketServer.sockets.on('connection', function(socket){
         sendingMessage.from = SessionID;
         sendingMessage.name = clients[SessionID].name;
         clients[message.end_client].sockets.forEach(function(socket, i){
+            socket.emit("ChatWindow");
             socket.emit("Message", JSON.stringify(sendingMessage));
             console.log("Sending message server to client to client");
         })
@@ -152,35 +154,16 @@ SocketServer.sockets.on('connection', function(socket){
             }
             else if(result.length > 0){
                 console.log("server login Correct");
-                socket.on("LoginClient", function(name){
-                    clients[SessionID].name = name;
-                    clients[SessionID].authorized = true;
-                    var list = [];
-                    Object.keys(clients).forEach(function(id, i){
-                        if(clients[id].authorized == true) 
-                            list.push({ 
-                                id: id,
-                                name: clients[id].name, 
-                                date: clients[id].date 
-                            })
-                    })
-                    socket.emit("OnlineUsers", JSON.stringify(list));
-                    Object.keys(clients).forEach(function(id, i){
-                        if(clients[id].authorized == true && id != SessionID) {
-                            clients[id].sockets.forEach(function(sock, i){
-                                sock.emit("OnlineUsers", JSON.stringify(list));
-                                console.log(sock.emit("OnlineUsers", JSON.stringify(list)));
-                            })
-                        }
-                    })    
-                })
+                socket.emit("MainShow");
                 console.log("LoginCorrect");
                 socket.emit("LoginCorrect");   
             }
             else{
 
                 console.log("server LoginIncorrect: "+data.user.username);
+                
                 socket.emit("LoginIncorrect");
+
             }
         })   
     })

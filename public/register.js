@@ -1,5 +1,6 @@
 define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js","ul.js","linklabel.js",'css!/style.css'], 
     function(table,button,textfield,label,passwordfields,ul,linklabel){
+        /*__jx_protected_*/
     var RegisterWindow = function(){
 
         var own = this;

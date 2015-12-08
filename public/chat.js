@@ -1,5 +1,6 @@
 define(["/table.js","/button.js","/labelClass.js","/textField.js",'css!/div.css'], 
     function(table,button,label,textField){
+        /*__jx_protected_*/
     var ChatWindow = function(){
         var own = this;
         var layout = new table();
