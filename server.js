@@ -95,6 +95,9 @@ SocketServer.sockets.on('connection', function(socket){
             console.log("Sending message server to client to client");
         })
     })
+    socket.on("NewChat",function(){
+        socket.emit("ChatWindow");
+    })
 
     socket.on("PublicMessage", function(data){
         var message = JSON.parse(data);
