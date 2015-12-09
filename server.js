@@ -89,17 +89,15 @@ SocketServer.sockets.on('connection', function(socket){
         replace(/\..+/, '')  ;
         sendingMessage.from = SessionID;
         sendingMessage.name = clients[SessionID].name;
+        
         clients[message.end_client].sockets.forEach(function(socket, i){
             socket.emit("ChatWindow");
             socket.emit("Message", JSON.stringify(sendingMessage));
             console.log("Sending message server to client to client");
         })
     })
-    socket.on("NewChat",function(){
-        socket.emit("ChatWindow");
-    })
 
-    socket.on("PublicMessage", function(data){
+    socket.on("PublicMessage", function(data){ 
         var message = JSON.parse(data);
         var sendingMessage = message;
         sendingMessage.date = new Date().toISOString().
@@ -114,14 +112,13 @@ SocketServer.sockets.on('connection', function(socket){
     socket.on("Register", function(data){
         if(data.user.username == '' || data.user.password == '' || data.user.email == ''){
                 socket.emit("RegisterNulls");
-            }
-            else{
-                Database.query('SELECT * FROM `users` WHERE `username` LIKE "'+data.user.username+'"', function(error,result)
+            } else {
+                Database.query('SELECT * FROM `users` WHERE `username` LIKE "'
+                    +data.user.username+'"', function(error,result)
                 {
                     if(result.length > 0){
                         socket.emit("AlreadyUser");
-                    }
-                    else{
+                    } else {
                         Database.query('INSERT INTO users VALUES ("' + data.user.username +
                                                             '","' + data.user.password + 
                                                             '","'+ data.user.email +'")',
@@ -133,7 +130,6 @@ SocketServer.sockets.on('connection', function(socket){
                             }
                             else{
                                     socket.emit("RegisterCorrect");
-                                    console.log("Result : "+result);
                                 }
                             console.log("Error : "+error);
                         })
@@ -156,17 +152,11 @@ SocketServer.sockets.on('connection', function(socket){
                 socket.emit("LoginNulls");
             }
             else if(result.length > 0){
-                console.log("server login Correct");
                 socket.emit("MainShow");
-                console.log("LoginCorrect");
                 socket.emit("LoginCorrect");   
             }
             else{
-
-                console.log("server LoginIncorrect: "+data.user.username);
-                
                 socket.emit("LoginIncorrect");
-
             }
         })   
     })

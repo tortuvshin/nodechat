@@ -22,11 +22,17 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
         Panel.addCell(5);
         var titlelabel = new label("БҮРТГҮҮЛЭХ ХЭСЭГ");
         titlelabel._view.attr("class","titlelabel");
+        var usernamelabel = new label("Хэрэглэгчийн нэр");
+        var emaillabel = new label("И-мэйл");
+        var passwordlabel = new label("Нууц үг");
         var usernamefield = new textfield();
         var emailfield = new textfield();
         var passwordfield = new passwordfields();
+        usernamelabel._view.attr("class","usernamelabel");
         usernamefield._view.attr("class","usernamefield");
+        emaillabel._view.attr("class","emaillabel");
         emailfield._view.attr("class","emailfield");
+        passwordlabel._view.attr("class","passwordlabel");
         passwordfield._view.attr("class","passwordfield");
         jQuery(passwordfield[type="password"]);
         var registerError = new ul();

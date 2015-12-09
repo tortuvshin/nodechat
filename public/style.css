@@ -229,8 +229,9 @@ body .mainTable{
 .passwordfield{
 	background:url(/assets/images/password.png) no-repeat left center; 
 }
-.usernamelabel{
-		place
+.usernamelabel .passwordlabel{
+	padding: 10px 10px 10px 10px;
+	margin: 10px 10px 10px 10px;
 }
 
 .registerError, .loginError{

@@ -22,7 +22,7 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
         Panel.addCell(5);
         Panel.addCell(6);
 
-        var titlelabel = new label("НЭВТРЭХ ХЭСЭГ");
+        var titlelabel = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspНЭВТРЭХ ХЭСЭГ");
         titlelabel._view.attr("class","titlelabel");
 
         var usernamelabel = new label("Хэрэглэгчийн нэр");

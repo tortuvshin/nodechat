@@ -18,10 +18,9 @@ require.config({
 
 require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/style.css"], function(io){
     window.doc = new Body();
-
     require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js", "textfield.js","chat.js"],
         function(table, button, textarea, linklabel, label,textfield,chat){
-            //doc.remove();
+
             var mainTable = new table();
             var headerTable = new table();
             var chatTable = new table();
@@ -29,18 +28,13 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             var infoTable = new table();
             var buddyTable = new table();
 
-
-            var chatWindow = new chat();
-
             var TextArea = new textarea();
             var TextField = new textfield();
             var SendButton = new button("Илгээх");
             var loginButton = new button("Нэвтрэх");
             var registerButton = new button("Бүртгүүлэх");
 
-            
-            doc.append(mainTable); 
-            
+            doc.append(mainTable);
 
             TextArea._view.attr("class","TextArea");
             TextField._view.attr("class", "TextField");
@@ -49,6 +43,8 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             mainTable.addRow();
             mainTable.addCell(0);
             mainTable.addCell(1);
+
+          
             mainTable.addCellContent(0,0,headerTable);
             mainTable.addCellContent(1,0,chatTable);
 
@@ -117,12 +113,12 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                     );
                     if(data.authorized != true){
                         require(["login.js"],function(LoginWindow){
+                            mainTable._view.hide();
                             var loginWindow = new LoginWindow();
-                            chatWindow._view.hide();
+
                         })
                     } else {
                         mainTable._view.show();
-                        chatWindow._view.show();
                         alert("Login correct user name: " +data.name);
                         socket.emit("LoginClient", data.name);
                         var username = new label(data.name);
@@ -162,9 +158,11 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                 name : client.name, 
                                 id : client.id
                             };
+                        
                             if (chatWindows[client.id]) {
                                 alert("Already");
                             }else{
+                                var chatWindow = new chat();
                                 var chatText = new label("user");
                                 var chatTextArea = new textarea();
                                 var chatTextField = new textfield();
@@ -193,7 +191,83 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                         socket.emit("Message", JSON.stringify(message));
                                         chatTextArea.appendText(text);
                                         chatTextField.setText("");
+                                    }
+                                })  
+                                socket.on("Message", function(data){
+                                    var message = JSON.parse(data);
+                                    chatTextArea.appendText(message.text +' at '+message.date);
+                                })
+                                $(chatCloseButton._view).on("click",function(){
+                                    delete chatWindows[client.id];
+                                    chatWindow._view.remove();
+                                    delete chatWindow;
+                                })
+                                $(chatHideButton._view).on("click",function(){
+                                    chatTextArea._view.remove();
+                                    chatTextField._view.remove();
+                                    chatSendButton._view.remove();
+                                    chatHideButton._view.remove();
+                                    chatShowButton._view.show();
+                                })
+                                $(chatShowButton._view).on("click",function(){
+                                    chatText._view.show();
+                                    chatTextArea._view.show();
+                                    chatTextField._view.show();
+                                    chatSendButton._view.show();
+                                    chatCloseButton._view.show();
+                                    chatHideButton._view.show();
+                                    chatShowButton._view.remove();
+                                })
+                                chatWindow.addControl(chatTextArea);
+                                chatWindow.addControl2(chatTextField);
+                                chatWindow.addControl5(chatText);
+                                chatWindow.addControl6(chatHideButton);
+                                chatWindow.addControl4(chatCloseButton);
+                                chatWindow.addControl1(chatShowButton);
+                                chatText.setText(selectedUser.name);
+                            }
+                            
+                        })
+                        socket.on("ChatWindow",function(data){
+                            
+                            selectedUser = {
+                                name : client.name, 
+                                id : client.id
+                            };
+                        
+                            if (chatWindows[client.id]) {
+                                alert("Already");
+                            }else{
+                                var chatWindow = new chat();
+                                var chatText = new label("user");
+                                var chatTextArea = new textarea();
+                                var chatTextField = new textfield();
+                                var chatCloseButton = new button("X");
+                                var chatHideButton = new button("_");
+                                var chatShowButton = new button("[]");
+                                chatShowButton._view.hide();
+
+                                chatText._view.attr("class","chatText");
+                                chatTextArea._view.attr("class","chatTextArea");
+                                chatTextField._view.attr("class","chatTextField");
+                                chatCloseButton._view.attr("class","closeButton");
+                                chatHideButton._view.attr("class","hideButton");
+                                chatShowButton._view.attr("class","showButton");
+                                
+                                chatWindows[selectedUser.id] = chatWindow;
+                                chatWindows[selectedUser.id]._view.css({"right": Object.keys(chatWindows).length * 150 + 'px'});
+
+                                $(chatTextField._view).keypress(function(e){
+                                    if(e.keyCode == 13){
+                                        var text = chatTextField.getText();
+                                        var message = {
+                                            text: text,
+                                            end_client : selectedUser.id
                                         }
+                                        socket.emit("Message", JSON.stringify(message));
+                                        chatTextArea.appendText(text);
+                                        chatTextField.setText("");
+                                    }
                                 })  
                                 socket.on("Message", function(data){
                                     var message = JSON.parse(data);
@@ -232,29 +306,25 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                     })
                     buddyTable.addCellContent(1,0,onlineUsersTable);
                 })
-
-                socket.on("MainShow",function(){
-                    alert("Main Table show");
-                    mainTable._view.show();
-                })
             });
             jQuery(loginButton._view).click(function(){
                 require(["login.js"],function(LoginWindow){
                     var loginWindow = new LoginWindow();
                     loginWindow.url = "/login";
                     navigate(this.url);
-                    mainTable._view.hide()
-                    chatWindow._view.hide();
+                    mainTable._view.hide();
                 })
             })   
             jQuery(registerButton._view).click(function(){
                 require(["register.js"],function(RegisterWindow){
                     var RegisterWindow = new RegisterWindow();
                     RegisterWindow.url = "/register";
-                    mainTable._view.hide();
                     navigate(this.url);
-                    chatWindow._view.hide();
+                    mainTable._view.hide();
                 })
+            })
+            socket.on("MainShow",function(){
+                mainTable._view.show();
             })
         })
        
@@ -263,8 +333,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                 history.pushState(url, url, url);
         }
         window.onbeforeunload = function(){
-            socket.emit("disconnect")
-            return 'disconnect';
+            socket.emit("disconnect");
         };
     })
 });
