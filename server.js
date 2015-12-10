@@ -4,6 +4,8 @@ var ps = require("path");
 var io = require('socket.io');
 var mysql =  require('mysql');
 var applicationPort = 8000;
+var Files = {};
+var url = require("url");
 
 var WebServer = http.createServer( function( req, res ) {
     var content= {};
@@ -81,6 +83,40 @@ SocketServer.sockets.on('connection', function(socket){
     });
     clients[SessionID].sockets.push(socket);
     console.log("=================InitSession================="+clients[SessionID].sockets.push(socket));
+    
+    socket.on('SendText', function (data) {
+        console.log(data['Text'])
+    })
+    socket.on('Start', function (data) { 
+        console.log("Initiating transfer of file " + data['Name'])
+        var Name = data['Name']
+        Files[Name] = { 
+            FileSize : data['Size'],
+            Data     : "",
+            Downloaded : 0
+        }
+        var Place = 0
+        try {
+            var Stat = fs.statSync('Temp/' +  Name)
+            if(Stat.isFile()) {
+                console.log("File is already in folder")
+                Files[Name]['Downloaded'] = Stat.size
+                Place = Stat.size / 524288
+            }
+        }
+        catch(er){} //It's a New File
+        fs.open('Temp/' + Name, "a", 0755, function(err, fd){
+            if(err) {
+                console.log("It is an Error")
+                console.log(err)
+            }
+            else {
+                Files[Name]['Handler'] = fd 
+                socket.emit('MoreData', { 'Place' : Place})
+            }
+        })
+    })
+
     socket.on("Message", function(data){
         var message = JSON.parse(data);
         var sendingMessage = message;

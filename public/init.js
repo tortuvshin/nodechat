@@ -18,6 +18,7 @@ require.config({
 
 require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/style.css"], function(io){
     window.doc = new Body();
+    window.addEventListener("load", Ready);
     require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js", "textfield.js","chat.js"],
         function(table, button, textarea, linklabel, label,textfield,chat){
 
@@ -99,8 +100,13 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
 
             mainTable._view.hide();
             window.socket = io.connect();
+            var fileReader;
+            var fileName;
+            var selectedFile;
             var selectedUser = {};
             window.chatWindows = {};
+
+        
 
             socket.on('connect', function(){
                 
@@ -166,6 +172,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                 var chatText = new label("user");
                                 var chatTextArea = new textarea();
                                 var chatTextField = new textfield();
+                                var chatFileUploadButton = new button("u");
                                 var chatCloseButton = new button("X");
                                 var chatHideButton = new button("_");
                                 var chatShowButton = new button("[]");
@@ -177,6 +184,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                 chatCloseButton._view.attr("class","closeButton");
                                 chatHideButton._view.attr("class","hideButton");
                                 chatShowButton._view.attr("class","showButton");
+                                chatFileUploadButton._view.attr("id","chatFileUploadButton");
                                 
                                 chatWindows[client.id] = chatWindow;
                                 chatWindows[client.id]._view.css({"right": Object.keys(chatWindows).length * 150 + 'px'});
@@ -221,6 +229,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                 chatWindow.addControl(chatTextArea);
                                 chatWindow.addControl2(chatTextField);
                                 chatWindow.addControl5(chatText);
+                                chatWindow.addControl3(chatFileUploadButton);
                                 chatWindow.addControl6(chatHideButton);
                                 chatWindow.addControl4(chatCloseButton);
                                 chatWindow.addControl1(chatShowButton);
