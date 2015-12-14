@@ -117,6 +117,30 @@ SocketServer.sockets.on('connection', function(socket){
         })
     })
 
+    socket.on('Upload', function (data){
+        var Name = data['Name']
+        Files[Name]['Downloaded'] += data['Data'].length
+        Files[Name]['Data'] += data['Data']
+        if(Files[Name]['Downloaded'] == Files[Name]['FileSize']) {
+            console.log("About to write data")
+            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
+            })
+            console.log("Completed transfer of file " + data['Name'])
+        }
+        else if(Files[Name]['Data'].length > 10485760) { //If the Data Buffer reaches 10MB
+            console.log("Going to write and then clear the buffer")
+            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
+                Files[Name]['Data'] = "" //Reset The Buffer
+                var Place = Files[Name]['Downloaded'] / 524288
+                socket.emit('MoreData', { 'Place' : Place})
+            })
+        }
+        else
+        {
+            var Place = Files[Name]['Downloaded'] / 524288
+            socket.emit('MoreData', { 'Place' : Place})
+        }
+    })
     socket.on("Message", function(data){
         var message = JSON.parse(data);
         var sendingMessage = message;

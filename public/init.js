@@ -18,9 +18,8 @@ require.config({
 
 require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/style.css"], function(io){
     window.doc = new Body();
-    window.addEventListener("load", Ready);
-    require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js", "textfield.js","chat.js"],
-        function(table, button, textarea, linklabel, label,textfield,chat){
+    require(["/table.js","/button.js","/textarea.js","linklabel.js","label.js", "textfield.js","chat.js", "fileUploadButton.js"],
+        function(table, button, textarea, linklabel, label,textfield,chat,uploadButton){
 
             var mainTable = new table();
             var headerTable = new table();
@@ -106,8 +105,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             var selectedUser = {};
             window.chatWindows = {};
 
-        
-
+            
             socket.on('connect', function(){
                 
                 socket.on("InitSession", function(data){
@@ -172,7 +170,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                 var chatText = new label("user");
                                 var chatTextArea = new textarea();
                                 var chatTextField = new textfield();
-                                var chatFileUploadButton = new button("u");
+                                var chatFileUploadButton = new uploadButton("u");
                                 var chatCloseButton = new button("X");
                                 var chatHideButton = new button("_");
                                 var chatShowButton = new button("[]");
@@ -196,14 +194,27 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                             text: text,
                                             end_client : selectedUser.id
                                         }
+                                        fileReader = new FileReader()
+                                        chatTextArea.appendText(fileName); 
+                                        fileReader.onload = function(evnt){
+                                            socket.emit('Upload', { 'Name' : name, Data : evnt.target.result })
+                                        }
+                                        console.log("About to send Start")
+                                        socket.emit('Start', { 'Name' : name, 'Size' : selectedFile.size })
+                                    
                                         socket.emit("Message", JSON.stringify(message));
                                         chatTextArea.appendText(text);
                                         chatTextField.setText("");
                                     }
-                                })  
+                                }) 
                                 socket.on("Message", function(data){
                                     var message = JSON.parse(data);
                                     chatTextArea.appendText(message.text +' at '+message.date);
+                                })
+                                $(chatFileUploadButton).on("change",function(){
+                                    selectedFile = evnt.target.files[0]
+                                    console.log(selectedFile)
+                                    chatTextArea.appendText(selectedFile.name);
                                 })
                                 $(chatCloseButton._view).on("click",function(){
                                     delete chatWindows[client.id];
@@ -229,7 +240,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                 chatWindow.addControl(chatTextArea);
                                 chatWindow.addControl2(chatTextField);
                                 chatWindow.addControl5(chatText);
-                                chatWindow.addControl3(chatFileUploadButton);
+                               //chatWindow.addControl3(chatFileUploadButton);
                                 chatWindow.addControl6(chatHideButton);
                                 chatWindow.addControl4(chatCloseButton);
                                 chatWindow.addControl1(chatShowButton);
@@ -255,7 +266,21 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                 var chatHideButton = new button("_");
                                 var chatShowButton = new button("[]");
                                 chatShowButton._view.hide();
+                                window.addEventListener("load", Ready)
 
+
+                                function Ready(){ 
+
+                                    if(window.File && window.FileReader){
+                                        $(chatFileUploadButton._view).addEventListener('click', StartUpload)
+
+                                        $(chatFileUploadButton._view).addEventListener('change', FileChosen)
+                                    }
+                                    else
+                                    {
+                                        alert("HI");
+                                    }
+                                }
                                 chatText._view.attr("class","chatText");
                                 chatTextArea._view.attr("class","chatTextArea");
                                 chatTextField._view.attr("class","chatTextField");
@@ -273,6 +298,14 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                             text: text,
                                             end_client : selectedUser.id
                                         }
+                                        fileReader = new FileReader()
+                                        chatTextArea.appendText(fileName); 
+                                        fileReader.onload = function(evnt){
+                                            socket.emit('Upload', { 'Name' : name, Data : evnt.target.result })
+                                        }
+                                        console.log("About to send Start")
+                                        socket.emit('Start', { 'Name' : name, 'Size' : selectedFile.size })
+                                    
                                         socket.emit("Message", JSON.stringify(message));
                                         chatTextArea.appendText(text);
                                         chatTextField.setText("");
@@ -293,6 +326,11 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                     chatSendButton._view.remove();
                                     chatHideButton._view.remove();
                                     chatShowButton._view.show();
+                                })
+                                $(chatFileUploadButton).on("click",function(){
+                                    selectedFile = evnt.target.files[0]
+                                    console.log(selectedFile)
+                                    chatTextArea.appendText(selectedFile.name);
                                 })
                                 $(chatShowButton._view).on("click",function(){
                                     chatText._view.show();
@@ -334,6 +372,36 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             })
             socket.on("MainShow",function(){
                 mainTable._view.show();
+            })
+
+            function FileChosen(evnt) {
+                selectedFile = evnt.target.files[0]
+                console.log(selectedFile)
+                chatTextArea.appendText(selectedFile.name);
+            }
+
+            function StartUpload(){
+
+                fileReader = new FileReader()
+                 chatTextArea.appendText(fileName); 
+                fileReader.onload = function(evnt){
+                    socket.emit('Upload', { 'Name' : name, Data : evnt.target.result })
+                }
+                console.log("About to send Start")
+                socket.emit('Start', { 'Name' : name, 'Size' : selectedFile.size })
+            }
+
+            socket.on('MoreData', function (data){
+                var Place = data['Place'] * 524288 //The Next Blocks Starting Position
+                var NewFile //The Variable that will hold the new Block of Data
+
+                if(selectedFile.webkitSlice) {
+                    NewFile = selectedFile.webkitSlice(Place, Place + Math.min(524288, (selectedFile.size-Place)))
+                }
+                else {
+                    NewFile = selectedFile.slice(Place, Place + Math.min(524288, (selectedFile.size-Place)))
+                }
+                fReader.readAsBinaryString(NewFile)
             })
         })
        

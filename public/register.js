@@ -1,6 +1,5 @@
 define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js","ul.js","linklabel.js",'css!/style.css'], 
     function(table,button,textfield,label,passwordfields,ul,linklabel){
-        /*__jx_protected_*/
     var RegisterWindow = function(){
 
         var own = this;
@@ -14,17 +13,23 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
         Panel.addRow();
         Panel.addRow();
         Panel.addRow();
+        Panel.addRow();
+        Panel.addRow();
+        Panel.addRow();
         Panel.addCell(0);
         Panel.addCell(1);
         Panel.addCell(2);
         Panel.addCell(3);
         Panel.addCell(4);
         Panel.addCell(5);
-        var titlelabel = new label("БҮРТГҮҮЛЭХ ХЭСЭГ");
+        Panel.addCell(6);
+        Panel.addCell(7);
+        Panel.addCell(8);
+        var titlelabel = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspБҮРТГҮҮЛЭХ ХЭСЭГ");
         titlelabel._view.attr("class","titlelabel");
-        var usernamelabel = new label("Хэрэглэгчийн нэр");
-        var emaillabel = new label("И-мэйл");
-        var passwordlabel = new label("Нууц үг");
+        var usernamelabel = new label("&nbsp&nbsp&nbspХэрэглэгчийн нэр");
+        var emaillabel = new label("&nbsp&nbsp&nbspИ-мэйл");
+        var passwordlabel = new label("&nbsp&nbsp&nbspНууц үг");
         var usernamefield = new textfield();
         var emailfield = new textfield();
         var passwordfield = new passwordfields();
@@ -50,12 +55,15 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
         Panel._view.attr("class", "RegisterPanel");
         
         Panel.addCellContentOneRow(0, 0, titlelabel);
-        Panel.addCellContentOneRow(1, 0, usernamefield);
-        Panel.addCellContentOneRow(2, 0, emailfield);
-        Panel.addCellContentOneRow(3, 0, passwordfield);
-        Panel.addCellContentOneRow(4, 0, registerError);
-        Panel.addCellContentOneRow(5, 0, registerButton);
-        Panel.addCellContentOneRow(5, 0, loginButton);  
+        Panel.addCellContentOneRow(1, 0, usernamelabel);
+        Panel.addCellContentOneRow(2, 0, usernamefield);
+        Panel.addCellContentOneRow(3, 0, emaillabel);  
+        Panel.addCellContentOneRow(4, 0, emailfield);  
+        Panel.addCellContentOneRow(5, 0, passwordlabel);
+        Panel.addCellContentOneRow(6, 0, passwordfield);
+        Panel.addCellContentOneRow(7, 0, registerError);
+        Panel.addCellContentOneRow(8, 0, registerButton);
+        Panel.addCellContentOneRow(8, 0, loginButton);  
         registerError._view.hide();
         jQuery(registerButton._view).click(function(){
             var newUser = {

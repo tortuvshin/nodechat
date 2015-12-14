@@ -25,12 +25,12 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
         var titlelabel = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspНЭВТРЭХ ХЭСЭГ");
         titlelabel._view.attr("class","titlelabel");
 
-        var usernamelabel = new label("Хэрэглэгчийн нэр");
+        var usernamelabel = new label("&nbsp&nbsp&nbspХэрэглэгчийн нэр");
         var usernamefield = new textfield();
         usernamefield._view.attr("class","usernamefield");
         usernamelabel._view.attr("class","usernamelabel");
 
-        var passwordlabel = new label("Нууц үг");
+        var passwordlabel = new label("&nbsp&nbsp&nbspНууц үг");
         var passwordfield = new passwordfields();
         passwordlabel._view.attr("class","passwordlabel");
         passwordfield._view.attr("class","passwordfield");
