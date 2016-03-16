@@ -1,0 +1,26 @@
+{
+  "name": "NodeChat",
+  "description": "Chat application using nodeJs and socket.io",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": {
+    "name": "Tortuvshin Byambaa",
+    "email": "b.tortuvshin@chinggis.systems",
+    "url": "http://tortuvshin.github.io"
+  },
+  "homepage": "https://tortuvshin.github.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tortuvshin/nodechat.git"
+  },
+  "dependencies": {
+    "socket.io": "*",
+    "mysql": "*"
+  },
+  "engines": {
+    "node": "*"
+  }
+}
