@@ -43,9 +43,9 @@ var SocketServer = io.listen(WebServer, {log : false});
 var clients = {};
 var pool =  mysql.createPool({
     host : "localhost",
-    user : "root",
-    password: "",
-    database: "nodejschat"
+    user : "node",
+    password: "node",
+    database: "node"
   });
 
 var Database;
@@ -55,6 +55,8 @@ pool.getConnection(function(error,conn){
     if(error){
         console.log("Database connection error!!! "+error); 
         return;
+    } else {
+        console.log("Database Connected !!!");
     }
 });
 
@@ -187,11 +189,12 @@ SocketServer.sockets.on('connection', function(socket){
                             if(error)
                             {
                                 throw error;
+                                console.log("Error : "+error);
                             }
                             else{
                                     socket.emit("RegisterCorrect");
+                                    console.log("New user" , data.user.name);
                                 }
-                            console.log("Error : "+error);
                         })
                     }
                 })
