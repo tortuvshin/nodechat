@@ -6,4 +6,4 @@ A sample chat application using Node.js and Socket.io
 > using command prompt or terminal inside server directory run node server.js
 
 ### Client
-> using browser go to http://localhost:8080
+> using browser go to http://localhost:8000
