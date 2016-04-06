@@ -3,7 +3,7 @@ Created by Toroo
 */
 require.config({
     paths: {
-        "jquery" : '/assets/lib/jquery-2.0.3.min',
+        "jquery" : '/assets/lib/jquery-2.2.3.min',
         "jquery_cookie" : '/assets/lib/jquery.cookie.min',
         "text" : '/assets/lib/text.min',
         "socket_io" : '/socket.io/socket.io',
