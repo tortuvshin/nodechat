@@ -13,7 +13,6 @@ define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js",
         Panel.addRow();
         Panel.addRow();
         Panel.addRow();
-
         Panel.addCell(0);
         Panel.addCell(1);
         Panel.addCell(2);
