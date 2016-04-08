@@ -19,7 +19,7 @@ A sample chat application using Node.js and Socket.io
   [http://localhost:8080](http://localhost:8080)
 
 ### License
-GNU GENERAL PUBLIC LICENSE
+[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg?style=flat-square)](https://raw.githubusercontent.com/tortuvshin/nodechat/master/LICENSE)
 
 ### Author
 [Tortuvshin Byambaa](http://tortuvshin.github.io/)
@@ -27,7 +27,8 @@ GNU GENERAL PUBLIC LICENSE
 
 ### Contributing
 
-See [Open Issues](https://github.com/tortuvshin/nodechat/issues).
+See [![GitHub issues](https://img.shields.io/github/issues/tortuvshin/nodechat.svg?style=flat-square)](https://github.com/tortuvshin/nodechat/issues)
+.
 
 - If you found any problems, please report on issues page.
 - If you made any change, send me pull request.
