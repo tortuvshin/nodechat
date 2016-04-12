@@ -62,7 +62,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             chatTable.addCellContentOneRow(0,1,groupChatTable);
             chatTable.addCellContentOneRow(0,2,buddyTable);
 
-            var infoHeader = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspХЭРЭГЛЭГЧИЙН МЭДЭЭЛЭЛ");
+            var infoHeader = new label("ХЭРЭГЛЭГЧИЙН МЭДЭЭЛЭЛ");
             infoHeader._view.attr("class","infoHeader");
             infoTable.addRow();
             infoTable.addRow();
@@ -70,7 +70,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             infoTable.addCell(1);
             infoTable.addCellContent(0,0,infoHeader);
 
-            var groupChatHeader = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspГРҮПП ЧАТ");
+            var groupChatHeader = new label("ГРҮПП ЧАТ");
             groupChatHeader._view.attr("class","groupChatHeader");
             groupChatTable.addRow();
             groupChatTable.addRow();
@@ -82,7 +82,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
             groupChatTable.addCellContent(1,0,TextArea);
             groupChatTable.addCellContentOneRow(2,0,TextField);
 
-            var buddyHeader = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspОНЛАЙН ХЭРЭГЛЭГЧИД");
+            var buddyHeader = new label("ОНЛАЙН ХЭРЭГЛЭГЧИД");
             buddyHeader._view.attr("class","buddyHeader");
             buddyTable.addRow();
             buddyTable.addRow();
@@ -262,9 +262,9 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.js", "css!/s
                                 var chatText = new label("user");
                                 var chatTextArea = new textarea();
                                 var chatTextField = new textfield();
-                                var chatCloseButton = new button("X");
-                                var chatHideButton = new button("_");
-                                var chatShowButton = new button("[]");
+                                var chatCloseButton = new button("");
+                                var chatHideButton = new button("");
+                                var chatShowButton = new button("");
                                 chatShowButton._view.hide();
                                 window.addEventListener("load", Ready)
 

@@ -27,7 +27,8 @@ A sample chat application using Node.js and Socket.io
 
 ### Contributing
 
-See [Open Issues](https://github.com/tortuvshin/nodechat/issues).
+See [![GitHub issues](https://img.shields.io/github/issues/tortuvshin/nodechat.svg?style=flat-square)](https://github.com/tortuvshin/nodechat/issues)
+.
 
 - If you found any problems, please report on issues page.
 - If you made any change, send me pull request.
