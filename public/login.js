@@ -1,4 +1,5 @@
-define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js","ul.js",'css!/style.css'], 
+define(["/api/table.js","/api/button.js","/api/textfield.js",
+    "/api/label.js","/api/passwordfield.js","/api/ul.js",'css!/style.css'], 
 	function(table,button,textfield,label,passwordfields,ul){
     var LoginWindow = function(){
         var own = this;

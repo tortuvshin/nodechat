@@ -1,4 +1,4 @@
-define(["/table.js","/button.js","/labelClass.js","/textField.js",'css!/div.css'], 
+define(["api/table.js","api/button.js","api/labelClass.js","api/textField.js",'css!/style.css'], 
     function(table,button,label,textField){
         /*__jx_protected_*/
     var ChatWindow = function(){

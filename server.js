@@ -3,7 +3,7 @@ var fs = require('fs');
 var ps = require("path");
 var io = require('socket.io');
 var mysql =  require('mysql');
-var applicationPort = 8080;
+var applicationPort = 2471;
 var Files = {};
 var url = require("url");
 

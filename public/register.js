@@ -1,4 +1,5 @@
-define(["/table.js","/button.js","/textfield.js","/label.js","passwordfield.js","ul.js","linklabel.js",'css!/style.css'], 
+define(["api/table.js","api/button.js","api/textfield.js",
+    "api/label.js","api/passwordfield.js","api/ul.js","api/linklabel.js",'css!/style.css'], 
     function(table,button,textfield,label,passwordfields,ul,linklabel){
     var RegisterWindow = function(){
 
