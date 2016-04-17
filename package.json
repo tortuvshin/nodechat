@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "socket.io": "*",
-    "mysql": "2.10.1"
+    "mysql": "2.10.1",
+    "node-sass": "3.4.2"
   },
   "engines": {
     "node": "*"
