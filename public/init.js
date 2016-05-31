@@ -3,11 +3,11 @@ Created by Toroo
 */
 require.config({
     paths: {
-        "jquery" : '/assets/lib/jquery-2.2.3.min',
-        "jquery_cookie" : '/assets/lib/jquery.cookie.min',
-        "text" : '/assets/lib/text.min',
+        "jquery" : '/lib/jquery-2.2.3.min',
+        "jquery_cookie" : '/lib/jquery.cookie.min',
+        "text" : '/lib/text.min',
         "socket_io" : '/socket.io/socket.io',
-        "css" : '/assets/lib/css.min'
+        "css" : '/lib/css.min'
     },
     shim: {
             "socket_io": {

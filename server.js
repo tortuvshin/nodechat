@@ -1,14 +1,15 @@
-var http = require( 'http' );
-var fs = require('fs');
-var ps = require("path");
-var io = require('socket.io');
-var mysql =  require('mysql');
-var applicationPort = process.env.PORT;
-var Files = {};
-var url = require("url");
+const http = require( 'http' );
+const fs = require('fs');
+const ps = require("path");
+const io = require('socket.io');
+const mysql =  require('mysql');
+const applicationHost = process.env.IP;
+const applicationPort = process.env.PORT;
+const Files = {};
+const url = require("url");
 
 var WebServer = http.createServer( function( req, res ) {
-    var content= {};
+    const content= {};
     content.code = 200;
     content.type = "text/plain";
 
@@ -42,9 +43,9 @@ var SocketServer = io.listen(WebServer, {log : false});
 
 var clients = {};
 var pool =  mysql.createPool({
-    host : "localhost",
-    user : "node",
-    password: "node",
+    host : applicationHost,
+    user : "tortuvshin",
+    password: "",
     database: "node"
   });
 
@@ -53,11 +54,12 @@ var Database;
 pool.getConnection(function(error,conn){
     Database = conn;
     if(error){
-        console.log("Database connection error!!! "+error); 
+        console.error("Database connection error!!! "+error); 
         return;
     } else {
         console.log("Database Connected !!!");
     }
+    console.warn(applicationHost);
 });
 
 SocketServer.sockets.on('connection', function(socket){

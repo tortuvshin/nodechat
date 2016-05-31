@@ -26,11 +26,11 @@ define(["api/table.js","api/button.js","api/textfield.js",
         Panel.addCell(6);
         Panel.addCell(7);
         Panel.addCell(8);
-        var titlelabel = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspБҮРТГҮҮЛЭХ ХЭСЭГ");
+        var titlelabel = new label("БҮРТГҮҮЛЭХ ХЭСЭГ");
         titlelabel._view.attr("class","titlelabel");
-        var usernamelabel = new label("&nbsp&nbsp&nbspХэрэглэгчийн нэр");
-        var emaillabel = new label("&nbsp&nbsp&nbspИ-мэйл");
-        var passwordlabel = new label("&nbsp&nbsp&nbspНууц үг");
+        var usernamelabel = new label("Хэрэглэгчийн нэр");
+        var emaillabel = new label("И-мэйл");
+        var passwordlabel = new label("Нууц үг");
         var usernamefield = new textfield();
         var emailfield = new textfield();
         var passwordfield = new passwordfields();
