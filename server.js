@@ -217,8 +217,9 @@ SocketServer.sockets.on('connection', function(socket){
                 socket.emit("LoginNulls");
             }
             else if(result.length > 0){
+                socket.emit("LoginClient");
                 socket.emit("MainShow");
-                socket.emit("LoginCorrect");   
+                socket.emit("LoginCorrect"); 
             }
             else{
                 socket.emit("LoginIncorrect");
