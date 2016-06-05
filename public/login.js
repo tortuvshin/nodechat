@@ -22,15 +22,15 @@ define(["/api/table.js","/api/button.js","/api/textfield.js",
         Panel.addCell(5);
         Panel.addCell(6);
 
-        var titlelabel = new label("&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspНЭВТРЭХ ХЭСЭГ");
+        var titlelabel = new label("НЭВТРЭХ ХЭСЭГ");
         titlelabel._view.attr("class","titlelabel");
 
-        var usernamelabel = new label("&nbsp&nbsp&nbspХэрэглэгчийн нэр");
+        var usernamelabel = new label("Хэрэглэгчийн нэр");
         var usernamefield = new textfield();
         usernamefield._view.attr("class","usernamefield");
         usernamelabel._view.attr("class","usernamelabel");
 
-        var passwordlabel = new label("&nbsp&nbsp&nbspНууц үг");
+        var passwordlabel = new label("Нууц үг");
         var passwordfield = new passwordfields();
         passwordlabel._view.attr("class","passwordlabel");
         passwordfield._view.attr("class","passwordfield");
@@ -70,6 +70,9 @@ define(["/api/table.js","/api/button.js","/api/textfield.js",
 		
         jQuery(passwordfield._view).keypress(function(e){
 			if(e.keyCode == 13){
+			    if(!validate()){
+			        return;
+			    }
 				var userInfo = {
 					username : usernamefield.getText(),
 					password : passwordfield.getText()
@@ -80,6 +83,17 @@ define(["/api/table.js","/api/button.js","/api/textfield.js",
 			}
 				
 		})
+    	
+        function validate(){
+            var username = usernamefield.getText();
+            var password = passwordfield.getText();
+            if(username == "" || password == "") {
+            	loginError._view.show();
+            	loginError.setText("Бүх талбаруудыг бөглөнө үү !");
+            	return false;
+            }
+            return true;
+        }
     	
         jQuery(registerButton._view).click(function(){
         	require(["register.js"],function(RegisterWindow){
@@ -92,16 +106,14 @@ define(["/api/table.js","/api/button.js","/api/textfield.js",
             jQuery("body .LoginPanel").removeClass("active");
             Panel._view.addClass("active");
         })
+        
         socket.on("LoginCorrect",function(){
             own._view.remove();
         })
+        
         socket.on("LoginIncorrect",function(){
 	        loginError._view.show();
 	        loginError.setText("Хэрэглэгчийн нэр, нууц үг буруу байна.");	
-        })
-        socket.on("LoginNulls",function(){
-        	loginError._view.show();
-        	loginError.setText("Бүх талбаруудыг бөглөнө үү !");
         })
     }
     return LoginWindow;

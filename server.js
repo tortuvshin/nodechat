@@ -5,7 +5,6 @@ const io = require('socket.io');
 const mysql =  require('mysql');
 const applicationHost = process.env.IP;
 const applicationPort = process.env.PORT;
-const Files = {};
 const url = require("url");
 
 var WebServer = http.createServer( function( req, res ) {
@@ -88,63 +87,6 @@ SocketServer.sockets.on('connection', function(socket){
     clients[SessionID].sockets.push(socket);
     console.log("=================InitSession================="+clients[SessionID].sockets.push(socket));
     
-    socket.on('SendText', function (data) {
-        console.log(data['Text'])
-    })
-    socket.on('Start', function (data) { 
-        console.log("Initiating transfer of file " + data['Name'])
-        var Name = data['Name']
-        Files[Name] = { 
-            FileSize : data['Size'],
-            Data     : "",
-            Downloaded : 0
-        }
-        var Place = 0
-        try {
-            var Stat = fs.statSync('Temp/' +  Name)
-            if(Stat.isFile()) {
-                console.log("File is already in folder")
-                Files[Name]['Downloaded'] = Stat.size
-                Place = Stat.size / 524288
-            }
-        }
-        catch(er){} //It's a New File
-        fs.open('Temp/' + Name, "a", 0755, function(err, fd){
-            if(err) {
-                console.log("It is an Error")
-                console.log(err)
-            }
-            else {
-                Files[Name]['Handler'] = fd 
-                socket.emit('MoreData', { 'Place' : Place})
-            }
-        })
-    })
-
-    socket.on('Upload', function (data){
-        var Name = data['Name']
-        Files[Name]['Downloaded'] += data['Data'].length
-        Files[Name]['Data'] += data['Data']
-        if(Files[Name]['Downloaded'] == Files[Name]['FileSize']) {
-            console.log("About to write data")
-            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
-            })
-            console.log("Completed transfer of file " + data['Name'])
-        }
-        else if(Files[Name]['Data'].length > 10485760) { //If the Data Buffer reaches 10MB
-            console.log("Going to write and then clear the buffer")
-            fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function(err, Writen){
-                Files[Name]['Data'] = "" //Reset The Buffer
-                var Place = Files[Name]['Downloaded'] / 524288
-                socket.emit('MoreData', { 'Place' : Place})
-            })
-        }
-        else
-        {
-            var Place = Files[Name]['Downloaded'] / 524288
-            socket.emit('MoreData', { 'Place' : Place})
-        }
-    })
     socket.on("Message", function(data){
         var message = JSON.parse(data);
         var sendingMessage = message;
@@ -175,7 +117,7 @@ SocketServer.sockets.on('connection', function(socket){
 
     socket.on("Register", function(data){
         if(data.user.username == '' || data.user.password == '' || data.user.email == ''){
-                socket.emit("RegisterNulls");
+                // socket.emit("RegisterNulls");
             } else {
                 Database.query('SELECT * FROM `users` WHERE `username` LIKE "'
                     +data.user.username+'"', function(error,result)
@@ -212,9 +154,6 @@ SocketServer.sockets.on('connection', function(socket){
             if(error)
             {
                 throw error;
-            }
-            else if (data.user.username == '' || data.user.password == ''){
-                socket.emit("LoginNulls");
             }
             else if(result.length > 0){
                 socket.emit("LoginClient");
