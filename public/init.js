@@ -16,10 +16,10 @@ require.config({
         }
 });
 
-require(["socket_io","jquery","text","css", "jquery_cookie", "/api/body.js", "css!/style.css"], function(io){
+require(["socket_io","jquery","text","css", "jquery_cookie", "/api/body.min.js", "css!/style.css"], function(io){
     window.doc = new Body();
-    require(["/api/table.js","/api/button.js","/api/textarea.js","/api/linklabel.js",
-        "/api/label.js", "/api/textfield.js","/chat.js", "/api/fileUploadButton.js"],
+    require(["/api/table.min.js","/api/button.min.js","/api/textarea.min.js","/api/linklabel.min.js",
+        "/api/label.min.js", "/api/textfield.min.js","/chat.min.js", "/api/fileUploadButton.js"],
         function(table, button, textarea, linklabel, label,textfield,chat,uploadButton){
 
             var mainTable = new table();
