@@ -116,33 +116,31 @@ SocketServer.sockets.on('connection', function(socket){
     })
 
     socket.on("Register", function(data){
-        if(data.user.username == '' || data.user.password == '' || data.user.email == ''){
-                // socket.emit("RegisterNulls");
+        
+        Database.query('SELECT * FROM `users` WHERE `username` LIKE "'
+            +data.user.username+'"', function(error,result)
+        {
+            if(result.length > 0){
+                socket.emit("AlreadyUser");
             } else {
-                Database.query('SELECT * FROM `users` WHERE `username` LIKE "'
-                    +data.user.username+'"', function(error,result)
+                Database.query('INSERT INTO users VALUES ("' + data.user.username +
+                                                    '","' + data.user.password + 
+                                                    '","'+ data.user.email +'")',
+                                                    function(error,result)
                 {
-                    if(result.length > 0){
-                        socket.emit("AlreadyUser");
-                    } else {
-                        Database.query('INSERT INTO users VALUES ("' + data.user.username +
-                                                            '","' + data.user.password + 
-                                                            '","'+ data.user.email +'")',
-                                                            function(error,result)
-                        {
-                            if(error)
-                            {
-                                throw error;
-                                console.log("Error : "+error);
-                            }
-                            else{
-                                    socket.emit("RegisterCorrect");
-                                    console.log("New user" , data.user.name);
-                                }
-                        })
+                    if(error)
+                    {
+                        throw error;
+                        console.log("Error : "+error);
                     }
+                    else{
+                            socket.emit("RegisterCorrect");
+                            console.log("New user" , data.user.name);
+                        }
                 })
-            } 
+            }
+        })
+     
     })
 
     socket.on("LogIn", function(data){  

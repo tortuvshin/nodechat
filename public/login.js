@@ -23,30 +23,30 @@ define(["/api/table.min.js","/api/button.min.js","/api/textfield.min.js",
         Panel.addCell(6);
 
         var titlelabel = new label("НЭВТРЭХ ХЭСЭГ");
-        titlelabel._view.attr("class","titlelabel");
+        titlelabel._view.addClass("titlelabel");
 
         var usernamelabel = new label("Хэрэглэгчийн нэр");
         var usernamefield = new textfield();
-        usernamefield._view.attr("class","usernamefield");
-        usernamelabel._view.attr("class","usernamelabel");
+        usernamefield._view.addClass("usernamefield");
+        usernamelabel._view.addClass("usernamelabel");
 
         var passwordlabel = new label("Нууц үг");
         var passwordfield = new passwordfields();
-        passwordlabel._view.attr("class","passwordlabel");
-        passwordfield._view.attr("class","passwordfield");
+        passwordlabel._view.addClass("passwordlabel");
+        passwordfield._view.addClass("passwordfield");
         
         var loginError = new ul();
-        loginError._view.attr("class","loginError");
+        loginError._view.addClass("loginError");
         var loginButton = new button("Нэвтрэх");
         var registerButton = new button("Бүртгүүлэх");
 
         Window.addCellContentOneRow(0, 0, Panel);
 
         own._view = Window._view;
-        own._view.attr("class","LoginWindow");
+        own._view.addClass("LoginWindow");
         jQuery("body").append(own._view);
 
-        Panel._view.attr("class", "LoginPanel");
+        Panel._view.addClass("LoginPanel");
         
         Panel.addCellContentOneRow(0, 0, titlelabel);
         Panel.addCellContentOneRow(1, 0, usernamelabel);

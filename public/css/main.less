@@ -1,0 +1,213 @@
+
+body .mainTable{
+	width: 100%;
+	height: 100%;
+	top: 1px;
+	vertical-align: top;
+}
+
+.headerTable {width: 100%;text-align: right;}
+.chatTable{width: 100%;}
+.infoTable{float: left;width: 100%;}
+.groupChatTable{width: 100%;}
+.buddyTable{width: 100%;float: right;}
+.LoginWindow{
+	position: absolute;
+	background-image: url("/assets/images/background.jpg");
+	background-repeat: repeat-x;
+    background-color: rgba(30,20,20, 0.3);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.LoginWindow>.node-row>.node-cell{vertical-align: middle;}
+.LoginWindow .LoginPanel{
+	background-color: white;
+	margin: auto;
+}
+.RegisterWindow
+{
+	position: absolute;
+	background-image: url("/assets/images/background.jpg");
+	background-repeat: repeat-x;
+    background-color: rgba(30,20,20, 0.3);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.RegisterWindow>.node-row>.node-cell{
+	vertical-align: middle;
+}
+.RegisterWindow .RegisterPanel
+{
+	background-color: white;
+	border: 1px solid gray;
+	margin: auto;
+}
+.chatwindow{
+	position: fixed;
+	right: 0;
+	bottom: 0;
+    background-color: white;
+    border: solid 1px #c3c3c3;
+	background-position: right;
+	z-index:1;
+	display:block;
+	text-align: right;
+}
+.chatwindow.active
+{
+	z-index :2;
+}
+.chatwindow .chatTextArea, .chatTextField, .closeButton, .hideButton, .showButton{
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+}
+.chatwindow .chatTextArea
+{
+	width: 200px;
+	height: 180px;
+	padding: 5px 5px;
+	text-align: left;
+}
+.chatwindow .chatTextField
+{
+	width: 200px;
+	padding: 5px 5px;
+	text-align: left;
+}
+.chatwindow .chatText{
+	text-align: left;
+}
+.chatwindow .closeButton, .hideButton, .showButton
+{
+	width: 30px;
+	vertical-align: right;
+}
+.mainTable .chatTable .groupChatTable .TextArea
+{
+	width: 95%;
+	height: 450px;
+}
+.mainTable .chatTable .groupChatTable .TextField
+{
+	width: 95%;
+}
+.mainTable .chatTable .infoTable .infoHeader
+{
+	background:url(/assets/images/user.png) no-repeat left center;  	
+}
+.mainTable .chatTable .buddyTable .buddyHeader
+{
+	background:url(/assets/images/user.png) no-repeat left center; 
+   	
+}
+.mainTable .chatTable .groupChatTable .groupChatHeader
+{
+	text-align: left;
+	background:url(/assets/images/group.png) no-repeat left center; 
+}
+.titlelabel{
+	font-size: 15px;
+	text-align: center;
+}
+.usernamefield{
+	background:url(/assets/images/user.png) no-repeat left center;
+}
+.emailfield{
+	background:url(/assets/images/mail.png) no-repeat left center; 
+}
+.passwordfield{
+	background:url(/assets/images/password.png) no-repeat left center; 
+}
+.usernamelabel .passwordlabel{
+	padding: 10px 10px 10px 10px;
+	margin: 10px 10px 10px 10px;
+}
+
+.registerError, .loginError{
+	color: #a94442;
+	padding: 10px 10px 10px 10px;
+  	background-color: #f2dede;
+    margin: 0px 0px 0px 0px;
+  	border: 1px solid #ebccd1;
+  	border-radius: 1px;
+  	top: 30px;
+  	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+  	box-shadow: inset 0 1px 1px rgba(0,0,0,.05);	
+}
+
+@media(min-width: 1200px) and (max-width: 1440px){
+
+	.infoTable
+	{
+		float: left;
+	}
+	.groupChatTable
+	{
+		width: 820px;
+	}
+	.buddyTable
+	{
+		float: left;
+	}
+}
+@media(min-width: 1000px) and (max-width: 1199px){
+		.infoTable
+	{
+		float: left;
+	}
+	.groupChatTable
+	{
+		width: 650px;
+	}
+	.buddyTable
+	{
+		float: left;
+	}
+}
+@media(min-width: 800px) and (max-width: 999px){
+	.infoTable
+	{
+		float: left;
+	}
+	.groupChatTable
+	{
+		width: 450px;
+	}
+	.buddyTable
+	{
+		float: left;
+	}
+}
+@media(min-width: 600px) and (max-width: 799px){
+	.infoTable
+	{
+		float: left;
+	}
+	.groupChatTable
+	{
+		width: 300px;
+	}
+	.buddyTable
+	{
+		float: left;
+	}
+}
+@media(max-width: 599px){
+		.infoTable
+	{
+		float: left;
+	}
+	.groupChatTable
+	{
+		float: left;
+		width: 300px;
+	}
+	.buddyTable
+	{
+		float: left;
+	}
+}

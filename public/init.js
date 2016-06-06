@@ -16,7 +16,7 @@ require.config({
         }
 });
 
-require(["socket_io","jquery","text","css", "jquery_cookie", "/api/body.min.js", "css!/style.css"], function(io){
+require(["socket_io","jquery","text","css", "jquery_cookie", "/api/body.min.js", "/style.css"], function(io){
     window.doc = new Body();
     require(["/api/table.min.js","/api/button.min.js","/api/textarea.min.js","/api/linklabel.min.js",
         "/api/label.min.js", "/api/textfield.min.js","/chat.min.js", "/api/fileUploadButton.js"],

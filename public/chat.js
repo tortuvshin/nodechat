@@ -12,12 +12,12 @@ define(["api/table.min.js","api/button.min.js","api/label.min.js","api/textfield
         layout.addCell(1);
         layout.addCell(2);
 
-        layout._view.attr("class","chat");
+        layout._view.addClass("chat");
 
         own._view = layout._view;
         $("body").append(own._view);
 
-        own._view.attr("class", "chatwindow");
+        own._view.addClass("chatwindow");
         
         own.setText = function(text){   
             //$(own._view).html(text);

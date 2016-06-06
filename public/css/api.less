@@ -1,22 +1,23 @@
-
-[toroo-class = table]
+.node-table
 {
 	display: table; 
 	vertical-align: top;
 	border: 1px solid #ccc;
+	
+	.node-row
+	{
+		display: table-row;
+	  	vertical-align: top;
+	}
+	.node-cell
+	{
+		display: table-cell;
+		vertical-align: top;
+		padding: 5px 5px 0px 5px;
+	}
 }
-[toroo-class = row]
-{
-	display: table-row;
-  	vertical-align: top;
-}
-[toroo-class = cell]
-{
-	display: table-cell;
-	vertical-align: top;
-	padding: 5px 5px 0px 5px;
-}
-[toroo-class = button]
+
+.node-button
 {
 	width: 100px;
 	display: inline-block;
@@ -39,7 +40,7 @@
 	border: 1px solid transparent;
 	border-radius: 1px;
 }
-[toroo-class = textarea]{
+.node-textarea {
 	background-color: white;
 	margin: 1px 1px 1px 1px;
 	height: 150px;
@@ -53,7 +54,7 @@
   	border: 1px solid #ccc;
   	border-radius: 4px;
 }
-[toroo-class = textfield]{
+.node-textfield{
 	margin: 5px 5px 5px 5px;
 	width: 200px;
 	display: inline-block;
@@ -72,7 +73,7 @@
   	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
-[toroo-class = passwordfield]{
+.node-passwordfield{
 	margin: 5px 5px 5px 5px;
 	width: 200px;
 	display: inline-block;
@@ -91,7 +92,7 @@
   	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
-[toroo_class = label]{
+.node-label {
 	margin: 5px 5px 5px 5px;
 	text-align: center;
 }

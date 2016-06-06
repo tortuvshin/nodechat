@@ -6,14 +6,14 @@ define(["css!/style.css"], function(){
     var textfield = function(){
         var own = this;
         own._view = jQuery(_textfield_);
-        own._view.attr("toroo-class","textfield");
+        own._view.addClass("node-textfield");
         own.setText = function(value){ 
             jQuery(own._view).val(value);
         }
         own.getText = function(){ 
             return own._view.val();
         } 
-        jQuery(own._view).on("textFieldClick", function(){
+        jQuery(own._view).on("click", function(){
         })        
     }
     return textfield;

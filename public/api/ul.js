@@ -6,7 +6,7 @@
         var own = this;
         own._view = $(html);
         own.url = "";
-        own._view.attr("css_class","ul");
+        own._view.addClass("css_class","ul");
 
         $(own._view).on("click", function(){
             $(own).trigger("clickLink");
