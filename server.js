@@ -7,6 +7,12 @@ const applicationHost = process.env.IP;
 const applicationPort = process.env.PORT;
 const url = require("url");
 
+var sqlite3 = require('sqlite3').verbose();
+
+var dbName = "db/chat.db";
+var db = createDatabase(dbName);
+
+
 var WebServer = http.createServer( function( req, res ) {
     const content= {};
     content.code = 200;
@@ -41,25 +47,23 @@ var WebServer = http.createServer( function( req, res ) {
 var SocketServer = io.listen(WebServer, {log : false});
 
 var clients = {};
-var pool =  mysql.createPool({
-    host : applicationHost,
-    user : "tortuvshin",
-    password: "",
-    database: "node"
-  });
 
-var Database;
-
-pool.getConnection(function(error,conn){
-    Database = conn;
-    if(error){
-        console.error("Database connection error!!! "+error); 
-        return;
-    } else {
-        console.log("Database Connected !!!");
+function createDatabase(file){
+    var db = new sqlite3.Database(file);
+    if(!fs.existsSync(file)){
+        console.log("creating database file");
+        fs.openSync(file, "w");
+        db.run("CREATE TABLE users (username TEXT, password TEXT, email TEXT)", function(createResult){
+            if(createResult) throw createResult;
+        });
+        
+        console.log("database initialized");
     }
-    console.warn(applicationHost);
-});
+
+    return db;
+}
+
+
 
 SocketServer.sockets.on('connection', function(socket){
     console.log("new user connected");
@@ -117,13 +121,14 @@ SocketServer.sockets.on('connection', function(socket){
 
     socket.on("Register", function(data){
         
-        Database.query('SELECT * FROM `users` WHERE `username` LIKE "'
+        db.each('SELECT * FROM `users` WHERE `username` LIKE "'
             +data.user.username+'"', function(error,result)
         {
             if(result.length > 0){
                 socket.emit("AlreadyUser");
-            } else {
-                Database.query('INSERT INTO users VALUES ("' + data.user.username +
+            }
+            else {
+                db.run('INSERT INTO users VALUES ("' + data.user.username +
                                                     '","' + data.user.password + 
                                                     '","'+ data.user.email +'")',
                                                     function(error,result)
@@ -144,7 +149,7 @@ SocketServer.sockets.on('connection', function(socket){
     })
 
     socket.on("LogIn", function(data){  
-        Database.query('SELECT * FROM `users` WHERE `username` LIKE "'
+        db.each('SELECT * FROM `users` WHERE `username` LIKE "'
             +data.user.username+'" AND `password` LIKE "'
             +data.user.password+'"',
         function(error,result)
