@@ -2,7 +2,6 @@
 [![GitHub issues](https://img.shields.io/github/issues/tortuvshin/nodechat.svg?style=flat-square)](https://github.com/tortuvshin/nodechat/issues)
 [![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg?style=flat-square)](https://raw.githubusercontent.com/tortuvshin/nodechat/master/LICENSE)
 [![Join the chat](https://badges.gitter.im/tortuvshin/nodechat.svg)](https://gitter.im/tortuvshin/nodechat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Coverage Status](https://coveralls.io/repos/github/tortuvshin/nodechat/badge.svg?branch=master)](https://coveralls.io/github/tortuvshin/nodechat?branch=master)
 [![Build status](https://ci.appveyor.com/api/projects/status/obbdkssggquc4rsu/branch/master?svg=true)](https://ci.appveyor.com/project/tortuvshin/nodechat/branch/master)
 [![Dependency Status](https://david-dm.org/tortuvshin/nodechat.svg)](https://david-dm.org/tortuvshin/nodechat)
 
