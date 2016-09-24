@@ -10,7 +10,7 @@ module.exports = function(grunt) {
           optimization: 2
         },
         files: {
-          "public/node.min.css": ["public/css/main.less", "public/css/api.less"] 
+          "public/style.css": ["public/css/main.less", "public/css/api.less"] 
         }
       }
     },

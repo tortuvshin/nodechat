@@ -10,102 +10,6 @@ body{
     vertical-align: top;
 }
 
-[toroo-class = table]
-{
-	display: table; 
-	vertical-align: top;
-	border: 1px solid #ccc;
-}
-[toroo-class = row]
-{
-	display: table-row;
-  	vertical-align: top;
-}
-[toroo-class = cell]
-{
-	display: table-cell;
-	vertical-align: top;
-	padding: 5px 5px 0px 5px;
-}
-[toroo-class = button]
-{
-	width: 100px;
-	display: inline-block;
-	margin: 10px 10px 10px 0px;
-	padding: 6px 12px;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 1.42857143;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: middle;
-	-ms-touch-action: manipulation;
-	touch-action: manipulation;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background-image: none;
-	border: 1px solid transparent;
-	border-radius: 1px;
-}
-[toroo-class = textarea]{
-	background-color: white;
-	margin: 1px 1px 1px 1px;
-	height: 150px;
-	width: 150px;
-	padding: 6px 12px;
-	font-size: 14px;
-  	line-height: 1.42857143;
-  	color: #555;
-  	background-color: #fff;
-  	background-image: none;
-  	border: 1px solid #ccc;
-  	border-radius: 4px;
-}
-[toroo-class = textfield]{
-	margin: 5px 5px 5px 5px;
-	width: 200px;
-	display: inline-block;
-  	height: 14px;
-  	padding: 6px 25px;
-  	font-size: 14px;
-  	line-height: 1.42857143;
-  	color: #555;
-  	background-color: #fff;
-  	background-image: none;
-  	border: 1px solid #ccc;
-  	border-radius: 1px;
-  	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-  	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-  	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-[toroo-class = passwordfield]{
-	margin: 5px 5px 5px 5px;
-	width: 200px;
-	display: inline-block;
-  	height: 14px;
-  	padding: 6px 25px;
-  	font-size: 14px;
-  	line-height: 1.42857143;
-  	color: #555;
-  	background-color: #fff;
-  	background-image: none;
-  	border: 1px solid #ccc;
-  	border-radius: 1px;
-  	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  	-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-  	-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-  	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-[toroo_class = label]{
-	margin: 5px 5px 5px 5px;
-	text-align: center;
-}
 body .mainTable{
 	width: 100%;
 	height: 100%;
@@ -128,7 +32,7 @@ body .mainTable{
     top: 0;
     left: 0;
 }
-.LoginWindow>[toroo-class = row]>[toroo-class = cell]{vertical-align: middle;}
+.LoginWindow > .node-row > .node-cell {vertical-align: middle;}
 .LoginWindow .LoginPanel{
 	background-color: white;
 	margin: auto;
@@ -144,7 +48,7 @@ body .mainTable{
     top: 0;
     left: 0;
 }
-.RegisterWindow>[toroo-class = row]>[toroo-class = cell]{
+.RegisterWindow > .node-row > .node-cell{
 	vertical-align: middle;
 }
 .RegisterWindow .RegisterPanel
@@ -193,25 +97,25 @@ body .mainTable{
 	width: 30px;
 	vertical-align: right;
 }
-.mainTable .chatTable .groupChatTable .TextArea
+.TextArea
 {
 	width: 95%;
 	height: 450px;
 }
-.mainTable .chatTable .groupChatTable .TextField
+.TextField
 {
 	width: 95%;
 }
-.mainTable .chatTable .infoTable .infoHeader
+.infoHeader
 {
 	background:url(/assets/images/user.png) no-repeat left center;  	
 }
-.mainTable .chatTable .buddyTable .buddyHeader
+.buddyHeader
 {
 	background:url(/assets/images/user.png) no-repeat left center; 
    	
 }
-.mainTable .chatTable .groupChatTable .groupChatHeader
+.groupChatHeader
 {
 	text-align: left;
 	background:url(/assets/images/group.png) no-repeat left center; 

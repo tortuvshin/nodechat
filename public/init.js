@@ -37,8 +37,8 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.min.js", "/s
 
             doc.append(mainTable);
 
-            TextArea._view.attr("class","TextArea");
-            TextField._view.attr("class", "TextField");
+            TextArea._view.addClass("TextArea");
+            TextField._view.addClass("TextField");
 
             mainTable.addRow();
             mainTable.addRow();
@@ -64,7 +64,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.min.js", "/s
             chatTable.addCellContentOneRow(0,2,buddyTable);
 
             var infoHeader = new label("ХЭРЭГЛЭГЧИЙН МЭДЭЭЛЭЛ");
-            infoHeader._view.attr("class","infoHeader");
+            infoHeader._view.addClass("infoHeader");
             infoTable.addRow();
             infoTable.addRow();
             infoTable.addCell(0);
@@ -72,7 +72,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.min.js", "/s
             infoTable.addCellContent(0,0,infoHeader);
 
             var groupChatHeader = new label("ГРҮПП ЧАТ");
-            groupChatHeader._view.attr("class","groupChatHeader");
+            groupChatHeader._view.addClass("groupChatHeader");
             groupChatTable.addRow();
             groupChatTable.addRow();
             groupChatTable.addRow();
@@ -84,19 +84,19 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.min.js", "/s
             groupChatTable.addCellContentOneRow(2,0,TextField);
 
             var buddyHeader = new label("ОНЛАЙН ХЭРЭГЛЭГЧИД");
-            buddyHeader._view.attr("class","buddyHeader");
+            buddyHeader._view.addClass("buddyHeader");
             buddyTable.addRow();
             buddyTable.addRow();
             buddyTable.addCell(0);
             buddyTable.addCell(1);
             buddyTable.addCellContent(0,0,buddyHeader);
-            mainTable._view.attr("class","mainTable");
-            headerTable._view.attr("class","headerTable");
+            mainTable._view.addClass("mainTable");
+            headerTable._view.addClass("headerTable");
 
-            chatTable._view.attr("class","chatTable");
-            infoTable._view.attr("class","infoTable");
-            groupChatTable._view.attr("class","groupChatTable");
-            buddyTable._view.attr("class","buddyTable");
+            chatTable._view.addClass("chatTable");
+            infoTable._view.addClass("infoTable");
+            groupChatTable._view.addClass("groupChatTable");
+            buddyTable._view.addClass("buddyTable");
 
             mainTable._view.hide();
             window.socket = io.connect();
@@ -132,7 +132,7 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.min.js", "/s
                 socket.on("OnlineUsers", function(data){
                     var online = JSON.parse(data);
                     var onlineUsersTable = new table();
-                    onlineUsersTable._view.attr("class","onlineUsersTable");
+                    onlineUsersTable._view.addClass("onlineUsersTable");
                     online.forEach(function(client, i){
                         onlineUsersTable.addRow();
                         onlineUsersTable.addCell(i);
@@ -176,12 +176,12 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.min.js", "/s
                                 var chatShowButton = new button("[]");
                                 chatShowButton._view.hide();
 
-                                chatText._view.attr("class","chatText");
-                                chatTextArea._view.attr("class","chatTextArea");
-                                chatTextField._view.attr("class","chatTextField");
-                                chatCloseButton._view.attr("class","closeButton");
-                                chatHideButton._view.attr("class","hideButton");
-                                chatShowButton._view.attr("class","showButton");
+                                chatText._view.addClass("chatText");
+                                chatTextArea._view.addClass("chatTextArea");
+                                chatTextField._view.addClass("chatTextField");
+                                chatCloseButton._view.addClass("closeButton");
+                                chatHideButton._view.addClass("hideButton");
+                                chatShowButton._view.addClass("showButton");
                                 
                                 chatWindows[client.id] = chatWindow;
                                 chatWindows[client.id]._view.css({"right": Object.keys(chatWindows).length * 150 + 'px'});
@@ -268,12 +268,12 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.min.js", "/s
                                         alert("HI");
                                     }
                                 }
-                                chatText._view.attr("class","chatText");
-                                chatTextArea._view.attr("class","chatTextArea");
-                                chatTextField._view.attr("class","chatTextField");
-                                chatCloseButton._view.attr("class","closeButton");
-                                chatHideButton._view.attr("class","hideButton");
-                                chatShowButton._view.attr("class","showButton");
+                                chatText._view.addClass("chatText");
+                                chatTextArea._view.addClass("chatTextArea");
+                                chatTextField._view.addClass("chatTextField");
+                                chatCloseButton._view.addClass("closeButton");
+                                chatHideButton._view.addClass("hideButton");
+                                chatShowButton._view.addClass("showButton");
                                 
                                 chatWindows[selectedUser.id] = chatWindow;
                                 chatWindows[selectedUser.id]._view.css({"right": Object.keys(chatWindows).length * 150 + 'px'});

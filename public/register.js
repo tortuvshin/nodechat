@@ -27,22 +27,22 @@ define(["table.min.js","button.min.js","textfield.min.js",
         Panel.addCell(7);
         Panel.addCell(8);
         var titlelabel = new label("БҮРТГҮҮЛЭХ ХЭСЭГ");
-        titlelabel._view.attr("class","titlelabel");
+        titlelabel._view.addClass("titlelabel");
         var usernamelabel = new label("Хэрэглэгчийн нэр");
         var emaillabel = new label("И-мэйл");
         var passwordlabel = new label("Нууц үг");
         var usernamefield = new textfield();
         var emailfield = new textfield();
         var passwordfield = new passwordfields();
-        usernamelabel._view.attr("class","usernamelabel");
-        usernamefield._view.attr("class","usernamefield");
-        emaillabel._view.attr("class","emaillabel");
-        emailfield._view.attr("class","emailfield");
-        passwordlabel._view.attr("class","passwordlabel");
-        passwordfield._view.attr("class","passwordfield");
+        usernamelabel._view.addClass("usernamelabel");
+        usernamefield._view.addClass("usernamefield");
+        emaillabel._view.addClass("emaillabel");
+        emailfield._view.addClass("emailfield");
+        passwordlabel._view.addClass("passwordlabel");
+        passwordfield._view.addClass("passwordfield");
         jQuery(passwordfield[type="password"]);
         var registerError = new ul();
-        registerError._view.attr("class","registerError");
+        registerError._view.addClass("registerError");
         var registerButton = new button("Бүртгүүлэх");
         var loginButton = new button("Нэвтрэх");
         var loginlinklabel = new linklabel();
@@ -50,10 +50,10 @@ define(["table.min.js","button.min.js","textfield.min.js",
         Window.addCellContentOneRow(0, 0, Panel);
 
         own._view = Window._view;
-        own._view.attr("class","RegisterWindow");
+        own._view.addClass("RegisterWindow");
         jQuery("body").append(own._view);
 
-        Panel._view.attr("class", "RegisterPanel");
+        Panel._view.addClass("RegisterPanel");
         
         Panel.addCellContentOneRow(0, 0, titlelabel);
         Panel.addCellContentOneRow(1, 0, usernamelabel);
