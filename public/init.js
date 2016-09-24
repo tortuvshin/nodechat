@@ -124,7 +124,6 @@ require(["socket_io","jquery","text","css", "jquery_cookie", "/body.min.js", "/s
                         })
                     } else {
                         mainTable._view.show();
-                        alert("Login correct user name: " +data.name);
                         socket.emit("LoginClient", data.name);
                         var username = new label(data.name);
                         infoTable.addCellContentOneRow(1,0,username);
