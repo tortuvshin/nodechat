@@ -10,7 +10,7 @@ module.exports = function(grunt) {
           optimization: 2
         },
         files: {
-          "public/style.css": ["public/css/main.less", "public/css/api.less"] 
+          "public/node.min.css": ["public/css/main.less", "public/css/api.less"] 
         }
       }
     },
@@ -25,15 +25,15 @@ module.exports = function(grunt) {
           'public/login.min.js': 'public/login.js',
           'public/register.min.js': 'public/register.js',
           'public/chat.min.js': 'public/chat.js',
-          'public/api/body.min.js': 'public/api/body.js',
-          'public/api/button.min.js': 'public/api/button.js',
-          'public/api/label.min.js': 'public/api/label.js',
-          'public/api/linklabel.min.js': 'public/api/linklabel.js',
-          'public/api/table.min.js': 'public/api/table.js',
-          'public/api/textarea.min.js': 'public/api/textarea.js',
-          'public/api/passwordfield.min.js': 'public/api/passwordfield.js',
-          'public/api/textfield.min.js': 'public/api/textfield.js',
-          'public/api/ul.min.js': 'public/api/ul.js'
+          'public/body.min.js': 'public/body.js',
+          'public/button.min.js': 'public/button.js',
+          'public/label.min.js': 'public/label.js',
+          'public/linklabel.min.js': 'public/linklabel.js',
+          'public/table.min.js': 'public/table.js',
+          'public/textarea.min.js': 'public/textarea.js',
+          'public/passwordfield.min.js': 'public/passwordfield.js',
+          'public/textfield.min.js': 'public/textfield.js',
+          'public/ul.min.js': 'public/ul.js'
         }
       }
     }

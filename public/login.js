@@ -1,5 +1,5 @@
-define(["/api/table.min.js","/api/button.min.js","/api/textfield.min.js",
-    "/api/label.min.js","/api/passwordfield.min.js","/api/ul.min.js",'css!/style.css'], 
+define(["/table.min.js","/button.min.js","/textfield.min.js",
+    "/label.min.js","/passwordfield.min.js","/ul.min.js",'css!/style.css'], 
 	function(table,button,textfield,label,passwordfields,ul){
     var LoginWindow = function(){
         var own = this;

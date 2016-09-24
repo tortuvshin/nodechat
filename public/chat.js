@@ -1,4 +1,4 @@
-define(["api/table.min.js","api/button.min.js","api/label.min.js","api/textfield.min.js",'css!/style.css'], 
+define(["table.min.js","button.min.js","label.min.js","textfield.min.js",'css!/style.css'], 
     function(table,button,label,textField){
         /*__jx_protected_*/
     var ChatWindow = function(){
